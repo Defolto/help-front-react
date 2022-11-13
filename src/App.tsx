@@ -1,15 +1,16 @@
-import React from 'react';
-import { Routes, Route, Link, NavLink } from 'react-router-dom';
-import './App.css';
-import Home from './Pages/Home/Home';
-import InfoBook from './Pages/InfoBook/InfoBook';
-import LearnBook from './Pages/LearnBook/LearnBook';
-import ProjectsBook from './Pages/ProjectsBook/ProjectsBook';
-import TasksBook from './Pages/TasksBook/TasksBook';
+import React from "react";
+import { Routes, Route, Link, NavLink } from "react-router-dom";
+import "./App.css";
+import Home from "./Pages/Home/Home";
+import InfoBook from "./Pages/InfoBook/InfoBook";
+import LearnBook from "./Pages/LearnBook/LearnBook";
+import ProjectsBook from "./Pages/ProjectsBook/ProjectsBook";
+import TasksBook from "./Pages/TasksBook/TasksBook";
+import Alert from "./Components/Alert/Alert";
 
 export default function App() {
   const isActiveLink = (isActive: boolean) => {
-    return isActive ? 'App__navigationActiveLink' : '';
+    return isActive ? "App__navigationActiveLink" : "";
   };
 
   return (
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/TasksBook" element={<TasksBook />} />
         </Routes>
       </main>
+      <Alert />
     </div>
   );
 }

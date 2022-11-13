@@ -1,18 +1,25 @@
-import './Nav.css';
+import "./Nav.css";
 
 type Props = {
   items: string[];
   activeItem: string;
+  onSelect: (selected: string) => void;
 };
 
-export default function Nav({ items, activeItem }: Props): JSX.Element {
+export default function Nav({
+  items,
+  activeItem,
+  onSelect,
+}: Props): JSX.Element {
   return (
     <nav className="Nav">
-      {items.map((item) => (
+      {items.map((item, i) => (
         <p
+          key={i}
           className={`Nav__item ${
-            item === activeItem ? 'Nav__item_active' : ''
+            item === activeItem ? "Nav__item_active" : ""
           }`}
+          onClick={() => onSelect(item)}
         >
           {item}
         </p>
