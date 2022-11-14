@@ -1,14 +1,20 @@
+@import "../../_constans";
+
 .Nav {
   display: flex;
   flex-direction: row;
-  padding: 20px;
+  padding: 20px 0;
 
   &__item {
-    margin: 0 30px;
+    margin: 0 20px;
     cursor: pointer;
 
     &_active {
       color: red;
+    }
+
+    &:first-child {
+      margin-left: 0;
     }
   }
 }

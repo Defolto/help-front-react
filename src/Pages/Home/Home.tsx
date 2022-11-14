@@ -1,11 +1,12 @@
 import "./Home.css";
+import AnimateText from "./AnimateText/AnimateText";
 
 export default function Home(): JSX.Element {
   return (
     <div className="Home">
       <div className="Home__title">
-        <p>Сайт для тебя, если ты</p>
-        <p>Хочешь обучиться frontend</p>
+        <p>Nachos are </p>
+        <AnimateText words={["Привет", "Как", "Дела", "У", "Тебя"]} />
       </div>
     </div>
   );

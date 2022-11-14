@@ -7,6 +7,7 @@ import LearnBook from "./Pages/LearnBook/LearnBook";
 import ProjectsBook from "./Pages/ProjectsBook/ProjectsBook";
 import TasksBook from "./Pages/TasksBook/TasksBook";
 import Alert from "./Components/Alert/Alert";
+import LinkHeader from "./Components/LinkHeader/LinkHeader";
 
 export default function App() {
   const isActiveLink = (isActive: boolean) => {
@@ -20,30 +21,10 @@ export default function App() {
           HelpFront
         </Link>
         <div className="App__navigationMenu d-col">
-          <NavLink
-            className={({ isActive }) => isActiveLink(isActive)}
-            to="/infoBook"
-          >
-            Справочник
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => isActiveLink(isActive)}
-            to="/LearnBook"
-          >
-            Учебник
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => isActiveLink(isActive)}
-            to="/ProjectsBook"
-          >
-            Проекты
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => isActiveLink(isActive)}
-            to="/TasksBook"
-          >
-            Задачи
-          </NavLink>
+          <LinkHeader to="/infoBook" icon="info" text="Справочник" />
+          <LinkHeader to="/LearnBook" icon="learn" text="Учебник" />
+          <LinkHeader to="/ProjectsBook" icon="projects" text="Проекты" />
+          <LinkHeader to="/TasksBook" icon="tasks" text="Задачи" />
         </div>
         <div className="App__navigationOptions d-col mt-auto">
           <p>Помощь</p>

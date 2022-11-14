@@ -19,6 +19,17 @@ export default function TasksBook(): JSX.Element {
         activeItem={selectTypeTasks}
         onSelect={setSelectTypeTasks}
       />
+      <div className="TasksBook__filter">
+        <div className="TasksBook__filterHard">
+          <p>
+            Уровень сложности: <span>15</span>
+          </p>
+          <input type="range" />
+        </div>
+        <div className="TasksBook__filterFind">
+          <input type="number" />
+        </div>
+      </div>
     </div>
   );
 }
