@@ -1,18 +1,22 @@
 import "./AnimateText.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   words: string[];
   offsetRight?: number;
 };
 
-function splitLetters(word: string): JSX.Element[] {
-  const letters = word.split("").map((letter, i) => {
-    return (
-      <span key={i} className="AnimateText__letter">
-        {letter}
-      </span>
-    );
+type IWord = {
+  letter: string;
+  state: string;
+};
+
+function splitLetters(word: string): IWord[] {
+  const letters = word.split("").map((letter) => {
+    return {
+      letter: letter,
+      state: "",
+    };
   });
   return letters;
 }
@@ -22,46 +26,82 @@ export default function AnimateText({
   offsetRight = 6,
 }: Props): JSX.Element {
   const [numberActiveWord, setNumberActiveWord] = useState<number>(0);
-  const [cw, setCw] = useState<JSX.Element[]>([]);
-  const [nw, setNw] = useState<JSX.Element[]>([]);
+  const [wordsFromLetters, setWordsFromLetters] = useState(
+    words.map((word) => {
+      return splitLetters(word);
+    })
+  );
 
-  const wordsFromLetters = words.map((word) => {
-    return splitLetters(word);
-  });
-
-  const animateLetterOut = (cw: JSX.Element[], i: number) => {
+  const animateLetterOut = (i: number, number: number) => {
     setTimeout(function () {
-      cw[i].props.className = "AnimateText__letter AnimateText__letter_out";
+      let newWordsFromLetters = wordsFromLetters.slice(0);
+      newWordsFromLetters[number][i].state = "out";
+      setWordsFromLetters(newWordsFromLetters);
     }, i * 80);
   };
 
-  const animateLetterIn = (nw: JSX.Element[], i: number) => {
+  const animateLetterIn = (i: number, number: number) => {
     setTimeout(function () {
-      nw[i].props.className = "AnimateText__letter AnimateText__letter_in";
+      let newWordsFromLetters = wordsFromLetters.slice(0);
+      newWordsFromLetters[number][i].state = "in";
+      setWordsFromLetters(newWordsFromLetters);
     }, 340 + i * 80);
   };
 
   // Функция, меняющая слова
-  const changeWord = () => {
-    setNumberActiveWord((prev) => {
-      return prev === words.length - 1 ? 0 : prev + 1;
-    });
+  const changeWord = (activeNumber: number) => {
+    const nextNumber =
+      activeNumber === wordsFromLetters.length - 1 ? 0 : activeNumber + 1;
+
+    let oldWord = wordsFromLetters[activeNumber];
+    let newWord = wordsFromLetters[nextNumber];
+
+    for (let i = 0; i < oldWord.length; i++) {
+      animateLetterOut(i, activeNumber);
+    }
+
+    for (let i = 0; i < newWord.length; i++) {
+      let newWordsFromLetters = wordsFromLetters.slice(0);
+      newWordsFromLetters[nextNumber][i].state = "";
+      setWordsFromLetters(newWordsFromLetters);
+      animateLetterIn(i, nextNumber);
+    }
+
+    if (wordsFromLetters.length - 1 === activeNumber) {
+      setNumberActiveWord(0);
+    } else {
+      setNumberActiveWord((prevState) => prevState + 1);
+    }
+    setTimeout(() => changeWord(nextNumber), 2000);
   };
 
-  //Начало запуска анимации
-  setTimeout(changeWord, 4000);
+  useEffect(() => {
+    setTimeout(() => changeWord(numberActiveWord), 2000);
+  }, []);
 
+  const nextWord =
+    wordsFromLetters.length - 1 === numberActiveWord ? 0 : numberActiveWord + 1;
   return (
     <div className="AnimateText" style={{ marginLeft: offsetRight + "px" }}>
       {wordsFromLetters.map((word, i) => (
-        <p
-          key={i}
-          className={`AnimateText__word ${
-            i === numberActiveWord ? "AnimateText__word_visible" : ""
-          }`}
-        >
-          {word.map((letter) => {
-            return letter;
+        <p key={i} className={`AnimateText__word`}>
+          {word.map((item, j) => {
+            return (
+              <span
+                key={j}
+                className={`AnimateText__letter ${
+                  i === numberActiveWord && item.state === "in"
+                    ? "AnimateText__letter_in"
+                    : ""
+                } ${
+                  i === nextWord && item.state === "out"
+                    ? "AnimateText__letter_out"
+                    : ""
+                }`}
+              >
+                {item.letter}
+              </span>
+            );
           })}
         </p>
       ))}

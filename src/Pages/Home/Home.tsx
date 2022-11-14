@@ -6,7 +6,7 @@ export default function Home(): JSX.Element {
     <div className="Home">
       <div className="Home__title">
         <p>Nachos are </p>
-        <AnimateText words={["Привет", "Как", "Дела", "У", "Тебя"]} />
+        <AnimateText words={["раз", "два", "три", "четыре"]} />
       </div>
     </div>
   );
