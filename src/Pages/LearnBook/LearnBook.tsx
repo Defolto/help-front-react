@@ -1,5 +1,7 @@
 import Nav from "../../Components/Nav/Nav";
 import { useEffect, useState } from "react";
+import { showAlert } from "../../Components/Alert/AlertSlice";
+import { useAppDispatch } from "../../hooks";
 
 export type Theme = {
   title: string;
@@ -9,6 +11,7 @@ export type Theme = {
 export default function LearnBook(): JSX.Element {
   const [selectTheme, setSelectTheme] = useState<string>("Html");
   const [theme, setTheme] = useState<Theme[]>([]);
+  const dispatch = useAppDispatch();
 
   const onSelectTheme = (theme: string): void => {
     if (theme === selectTheme) {
@@ -24,7 +27,7 @@ export default function LearnBook(): JSX.Element {
         setTheme(obj.default);
       })
       .catch((e) => {
-        console.log(e);
+        dispatch(showAlert("Проверка, что работает"));
       });
   }, [selectTheme]);
 

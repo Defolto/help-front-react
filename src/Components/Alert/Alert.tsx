@@ -1,12 +1,16 @@
 import "./Alert.css";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { showAlert } from "./AlertSlice";
 
 export default function Alert(): JSX.Element {
-  const needShow = false;
+  const dispatch = useAppDispatch();
+  const textAlert = useAppSelector((state) => state.alert.text);
 
   return (
-    <div className={`Alert ${needShow ? "Alert_show" : ""}`}>
+    <div className={`Alert ${textAlert ? "Alert_show" : ""}`}>
       <div className="Alert__content">
-        <p>Просто проверяем, что работает</p>
+        <p>{textAlert}</p>
+        <p onClick={() => dispatch(showAlert(""))}>Закрыть</p>
       </div>
     </div>
   );
