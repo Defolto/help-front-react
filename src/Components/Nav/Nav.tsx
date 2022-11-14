@@ -3,7 +3,7 @@ import "./Nav.css";
 type Props = {
   items: string[];
   activeItem: string;
-  onSelect: (selected: string) => void;
+  onSelect: (selected: any) => void;
 };
 
 export default function Nav({

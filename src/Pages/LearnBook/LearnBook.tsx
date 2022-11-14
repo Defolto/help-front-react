@@ -1,46 +1,56 @@
 import Nav from "../../Components/Nav/Nav";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { showAlert } from "../../Components/Alert/AlertSlice";
 import { useAppDispatch } from "../../hooks";
+import "./LearnBook.css";
+import LineTheme from "./LineTheme/LineTheme";
+import defaultTheme from "./themes/themeHtml";
 
-export type Theme = {
+export type ITheme = {
   title: string;
   points: string[];
 };
 
+export type ICourse = "Html" | "Css" | "JavaScript" | "Git" | "Figma";
+
+const COURSES: ICourse[] = ["Html", "Css", "JavaScript", "Git", "Figma"];
+const DEFAULT_SELECT_THEME: ICourse = "Html";
+
 export default function LearnBook(): JSX.Element {
-  const [selectTheme, setSelectTheme] = useState<string>("Html");
-  const [theme, setTheme] = useState<Theme[]>([]);
+  const [selectTheme, setSelectTheme] = useState<ICourse>(DEFAULT_SELECT_THEME);
+  const [infoTheme, setInfoTheme] = useState<ITheme[]>(defaultTheme);
   const dispatch = useAppDispatch();
 
-  const onSelectTheme = (theme: string): void => {
+  const onSelectTheme = (theme: ICourse): void => {
     if (theme === selectTheme) {
       return;
     }
 
-    setSelectTheme(theme);
-  };
-
-  useEffect(() => {
-    import(`./themes/theme${selectTheme}`)
+    import(`./themes/theme${theme}`)
       .then((obj) => {
-        setTheme(obj.default);
+        setInfoTheme(obj.default);
+        setSelectTheme(theme);
       })
       .catch((e) => {
-        dispatch(showAlert("Проверка, что работает"));
+        dispatch(
+          showAlert(
+            "На данный момент, тема в разработке. Когда-нибудь она будет:)"
+          )
+        );
       });
-  }, [selectTheme]);
+  };
 
   return (
     <div className="LearnBook">
-      <Nav
-        items={["Html", "Css", "JavaScript", "Git", "Figma"]}
-        activeItem={selectTheme}
-        onSelect={onSelectTheme}
-      />
-      <div>
-        {theme.map((item, index) => (
-          <p key={index}>{item.title}</p>
+      <Nav items={COURSES} activeItem={selectTheme} onSelect={onSelectTheme} />
+      <div className="LearnBook__lines">
+        {infoTheme.map((item, index) => (
+          <LineTheme
+            title={item.title}
+            points={item.points}
+            index={index}
+            course={selectTheme}
+          />
         ))}
       </div>
     </div>

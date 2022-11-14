@@ -1,6 +1,6 @@
-import { Theme } from "../LearnBook";
+import { ITheme } from "../LearnBook";
 
-const themeHtml: Theme[] = [
+const themeHtml: ITheme[] = [
   {
     title: "Введение",
     points: [

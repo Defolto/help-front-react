@@ -1,6 +1,6 @@
-import { Theme } from "../LearnBook";
+import { ITheme } from "../LearnBook";
 
-const themeJavaScript: Theme[] = [
+const themeJavaScript: ITheme[] = [
   {
     title: "Введение",
     points: [
@@ -37,7 +37,7 @@ const themeJavaScript: Theme[] = [
     ],
   },
   {
-    title: "Переменные в JS",
+    title: "Переменные",
     points: [
       "Примитивы и объекты",
       "Числа",
@@ -48,7 +48,7 @@ const themeJavaScript: Theme[] = [
     ],
   },
   {
-    title: "Функции в JS",
+    title: "Функции",
     points: [
       "Более подробно",
       "Стрелочные функции",
@@ -59,7 +59,7 @@ const themeJavaScript: Theme[] = [
     ],
   },
   {
-    title: "Массивы в JS",
+    title: "Массивы",
     points: [
       "Более подробно",
       "Основные методы",
@@ -69,7 +69,7 @@ const themeJavaScript: Theme[] = [
     ],
   },
   {
-    title: "Классы в JS",
+    title: "Классы",
     points: ["Основы", "Наследование", "Свойства и методы", "Конструктор"],
   },
   {

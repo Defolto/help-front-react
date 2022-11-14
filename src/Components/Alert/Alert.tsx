@@ -9,8 +9,13 @@ export default function Alert(): JSX.Element {
   return (
     <div className={`Alert ${textAlert ? "Alert_show" : ""}`}>
       <div className="Alert__content">
-        <p>{textAlert}</p>
-        <p onClick={() => dispatch(showAlert(""))}>Закрыть</p>
+        <p className="Alert__content_title">{textAlert}</p>
+        <p
+          className="Alert__content_close"
+          onClick={() => dispatch(showAlert(""))}
+        >
+          Закрыть
+        </p>
       </div>
     </div>
   );

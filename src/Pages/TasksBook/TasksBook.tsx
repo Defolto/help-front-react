@@ -1,3 +1,24 @@
-export default function TasksBook({}): JSX.Element {
-  return <div>Задачи</div>;
+import "./TasksBook.css";
+import Nav from "../../Components/Nav/Nav";
+import { useState } from "react";
+
+export type ITypeTask = "Все" | "Вёрстка" | "JavaScript" | "Общие";
+
+const TASKS: ITypeTask[] = ["Все", "Вёрстка", "JavaScript", "Общие"];
+const DEFAULT_SELECT_TYPE_TASKS: ITypeTask = "Все";
+
+export default function TasksBook(): JSX.Element {
+  const [selectTypeTasks, setSelectTypeTasks] = useState(
+    DEFAULT_SELECT_TYPE_TASKS
+  );
+
+  return (
+    <div className="TasksBook">
+      <Nav
+        items={TASKS}
+        activeItem={selectTypeTasks}
+        onSelect={setSelectTypeTasks}
+      />
+    </div>
+  );
 }
