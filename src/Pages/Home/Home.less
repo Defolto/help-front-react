@@ -20,10 +20,34 @@
 
   &__description {
     margin: 30px auto;
-    max-width: 710px;
+    max-width: 770px;
     text-align: center;
-    font-size: 22px;
+    font-size: 24px;
     line-height: 24px;
     color: #1e2073;
+  }
+
+  &__linkTelegram {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    &Text {
+      max-width: 440px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    &Img {
+      width: 120px;
+      background-color: white;
+      padding: 20px 20px 5px 20px;
+      border-radius: 25px;
+      margin: 10px auto;
+
+      & > img {
+        width: 100%;
+      }
+    }
   }
 }
