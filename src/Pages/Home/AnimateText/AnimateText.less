@@ -1,9 +1,28 @@
 .AnimateText {
   position: relative;
+  width: 230px;
 
   &__word {
     position: absolute;
-    width: 220px;
+    white-space: pre;
+    opacity: 0;
+    font-size: 50px;
+
+    &_active {
+      opacity: 1;
+
+      .AnimateText__letter {
+        transform: rotateX(-90deg);
+      }
+    }
+
+    &_prev {
+      opacity: 1;
+
+      .AnimateText__letter {
+        transform: rotateX(0deg);
+      }
+    }
   }
 
   &__letter {
@@ -11,15 +30,12 @@
     position: relative;
     transform: translateZ(25px);
     transform-origin: 50% 50% 25px;
-    opacity: 0;
 
     &_out {
-      opacity: 1;
       animation: 0.38s hide cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
     }
     &_in {
-      opacity: 1;
-      animation: 0.82s show cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      animation: 0.32s show cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
   }
 }

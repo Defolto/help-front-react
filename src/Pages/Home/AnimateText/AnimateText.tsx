@@ -23,7 +23,7 @@ function splitLetters(word: string): IWord[] {
 
 export default function AnimateText({
   words,
-  offsetRight = 6,
+  offsetRight = 16,
 }: Props): JSX.Element {
   const [numberActiveWord, setNumberActiveWord] = useState<number>(0);
   const [wordsFromLetters, setWordsFromLetters] = useState(
@@ -72,19 +72,24 @@ export default function AnimateText({
     } else {
       setNumberActiveWord((prevState) => prevState + 1);
     }
-    setTimeout(() => changeWord(nextNumber), 2000);
+    setTimeout(() => changeWord(nextNumber), 3000);
   };
 
   useEffect(() => {
-    setTimeout(() => changeWord(numberActiveWord), 2000);
+    changeWord(numberActiveWord);
   }, []);
 
-  const nextWord =
-    wordsFromLetters.length - 1 === numberActiveWord ? 0 : numberActiveWord + 1;
+  const prevWord =
+    numberActiveWord === 0 ? wordsFromLetters.length - 1 : numberActiveWord - 1;
   return (
     <div className="AnimateText" style={{ marginLeft: offsetRight + "px" }}>
       {wordsFromLetters.map((word, i) => (
-        <p key={i} className={`AnimateText__word`}>
+        <p
+          key={i}
+          className={`AnimateText__word ${
+            i === numberActiveWord ? "AnimateText__word_active" : ""
+          } ${i === prevWord ? "AnimateText__word_prev" : ""}`}
+        >
           {word.map((item, j) => {
             return (
               <span
@@ -93,11 +98,7 @@ export default function AnimateText({
                   i === numberActiveWord && item.state === "in"
                     ? "AnimateText__letter_in"
                     : ""
-                } ${
-                  i === nextWord && item.state === "out"
-                    ? "AnimateText__letter_out"
-                    : ""
-                }`}
+                } ${item.state === "out" ? "AnimateText__letter_out" : ""}`}
               >
                 {item.letter}
               </span>
