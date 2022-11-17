@@ -3,7 +3,7 @@ import React, { useEffect, useState, Suspense } from "react";
 import { showAlert } from "../../Components/Alert/AlertSlice";
 import { useAppDispatch } from "../../hooks";
 import "./LearnBook.css";
-import LineTheme from "./LineTheme/LineTheme";
+import "./pages/Page.css";
 
 // Тип url-ов на данной странице
 // ./LearnBook/?course={название курса из типа ICourse}&theme={номер темы}&article={номер статьи}
@@ -31,17 +31,11 @@ export default function LearnBook(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const onSelectTheme = (theme: ICourse): void => {
-    if (theme === selectTheme) {
-      return;
-    }
-
     import(`./themes/theme${theme}`)
       .then((obj) => {
         setInfoTheme(obj.default);
         setSelectTheme(theme);
-        // Только заменяем url, но не переходим
-        // Нужно на случай обновления страницы, чтобы осталась активная тема
-        window.history.pushState(null, "", `./?course=${theme}`);
+        window.location.replace(`./?course=${theme}`);
       })
       .catch(() => {
         dispatch(
@@ -67,9 +61,9 @@ export default function LearnBook(): JSX.Element {
       });
   }, []);
 
-  const PageComponent = React.lazy(() => {
-    const courses = window.location.search.split("&");
+  const courses = window.location.search.split("&");
 
+  const PageComponent = React.lazy(() => {
     if (courses.length > 1) {
       const activeTheme = courses[1].substring(6, courses[1].length);
       const activeArticle = courses[2].substring(8, courses[2].length);
@@ -86,7 +80,11 @@ export default function LearnBook(): JSX.Element {
       <Nav items={COURSES} activeItem={selectTheme} onSelect={onSelectTheme} />
 
       <Suspense fallback={<div>Загрузка...</div>}>
-        <PageComponent infoTheme={infoTheme} course={selectTheme} />
+        {courses.length > 1 ? (
+          <PageComponent />
+        ) : (
+          <PageComponent infoTheme={infoTheme} course={selectTheme} />
+        )}
       </Suspense>
     </div>
   );
