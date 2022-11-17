@@ -2,19 +2,20 @@
 
 .LearnBook {
   height: 100%;
-  padding: 0 @paddingMainContent;
 
   &__lines {
     // TODO: сделать как-то динамический рассчёт высоты. Пока что будем просто вычетать высоту Nav
-    height: calc(100% - 58px);
+    height: calc(100% - 64px);
     overflow-y: scroll;
+    padding: 0 @paddingMainContent;
 
     &::-webkit-scrollbar {
       width: 10px;
     }
 
     &::-webkit-scrollbar-track {
-      background-color: #ffffff;
+      background-color: #cbdbff;
+      border-radius: 15px;
     }
 
     &::-webkit-scrollbar-thumb {

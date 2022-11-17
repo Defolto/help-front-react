@@ -8,9 +8,7 @@ export default function Home(): JSX.Element {
     <div className="Home">
       <div className="Home__title">
         <p>Сайт для </p>
-        <AnimateText
-          words={["практики.", "обучения.", "поиска.", "развития."]}
-        />
+        <AnimateText words={["практики", "обучения", "поиска", "развития"]} />
       </div>
       <div className="Home__description">
         <p>

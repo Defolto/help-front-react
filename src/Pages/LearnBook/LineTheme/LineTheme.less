@@ -1,7 +1,12 @@
 .LineTheme {
   display: flex;
   flex-direction: column;
-  margin: 30px 0;
+  margin: 34px 0;
+
+  h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
 
   &__points {
     display: flex;
@@ -13,5 +18,11 @@
     width: calc(100% / 3);
     margin: 2px 0;
     cursor: pointer;
+    color: #333333;
+
+    &:hover {
+      text-decoration: underline;
+      color: #0216ff;
+    }
   }
 }

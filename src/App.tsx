@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link, NavLink } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/Home/Home";
 import InfoBook from "./Pages/InfoBook/InfoBook";
@@ -10,10 +10,6 @@ import Alert from "./Components/Alert/Alert";
 import LinkHeader from "./Components/LinkHeader/LinkHeader";
 
 export default function App() {
-  const isActiveLink = (isActive: boolean) => {
-    return isActive ? "App__navigationActiveLink" : "";
-  };
-
   return (
     <div className="App">
       <header className="App__navigation">
@@ -22,7 +18,11 @@ export default function App() {
         </Link>
         <div className="App__navigationMenu d-col">
           <LinkHeader to="/infoBook" icon="info" text="Справочник" />
-          <LinkHeader to="/LearnBook" icon="learn" text="Учебник" />
+          <LinkHeader
+            to="/LearnBook/?course=Html"
+            icon="learn"
+            text="Учебник"
+          />
           <LinkHeader to="/ProjectsBook" icon="projects" text="Проекты" />
           <LinkHeader to="/TasksBook" icon="tasks" text="Задачи" />
         </div>

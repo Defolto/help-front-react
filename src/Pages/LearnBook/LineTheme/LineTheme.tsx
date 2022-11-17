@@ -4,7 +4,7 @@ import "./LineTheme.css";
 type ILineTheme = {
   title: string;
   points: string[];
-  index: number;
+  theme: number;
   course: ICourse;
 };
 
@@ -13,16 +13,24 @@ type Props = ILineTheme;
 export default function LineTheme({
   title,
   points,
-  index,
+  theme,
   course,
 }: Props): JSX.Element {
   return (
     <div className="LineTheme">
       <h2>{title}</h2>
       <div className="LineTheme__points">
-        {points.map((point, index) => (
-          <p className="LineTheme__point" key={index}>
-            {point}
+        {points.map((title, point) => (
+          <p
+            onClick={() => {
+              window.location.replace(
+                `./?course=${course}&theme=${theme}&article=${point}`
+              );
+            }}
+            className="LineTheme__point"
+            key={theme}
+          >
+            {theme}.{point} {title}
           </p>
         ))}
       </div>

@@ -14,15 +14,16 @@ export default function Nav({
   return (
     <nav className="Nav">
       {items.map((item, i) => (
-        <p
+        <div
           key={i}
           className={`Nav__item ${
             item === activeItem ? "Nav__item_active" : ""
           }`}
           onClick={() => onSelect(item)}
         >
-          {item}
-        </p>
+          <p className="Nav__title">{item}</p>
+          <div className="Nav__line"></div>
+        </div>
       ))}
     </nav>
   );
