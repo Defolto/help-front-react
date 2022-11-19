@@ -1,0 +1,48 @@
+.Task {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid black;
+  padding: 20px 0;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 15px;
+
+    &Date {
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &Remarks {
+      & > p:first-child {
+        font-weight: 700;
+      }
+    }
+
+    &Description {
+      margin-bottom: 10px;
+
+      & > p:first-child {
+        font-weight: 700;
+      }
+    }
+  }
+
+  &_column {
+    width: 45%;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

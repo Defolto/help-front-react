@@ -21,8 +21,12 @@
       margin-right: 30px;
 
       select {
-        margin-top: 5px;
+        margin-top: 2px;
         padding: 4px 2px;
+
+        &:focus {
+          outline: none;
+        }
       }
     }
 
@@ -32,7 +36,6 @@
       margin: auto 0;
 
       & > svg {
-        margin-top: auto;
         border: 1px solid black;
         border-left: none;
         padding: 2px;
@@ -62,33 +65,5 @@
     flex-direction: column;
     width: 1080px;
     margin: 0 auto;
-  }
-
-  &__task {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid black;
-
-    &Header {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      font-size: 24px;
-      font-weight: 800;
-    }
-
-    &Body {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-
-    &_column {
-      width: 45%;
-    }
-
-    &:last-child {
-      border-bottom: none;
-    }
   }
 }

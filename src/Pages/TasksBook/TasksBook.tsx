@@ -3,8 +3,12 @@ import Nav from "../../Components/Nav/Nav";
 import { useState } from "react";
 import SearchIcon from "./icons/SearchIcon";
 import Slider from "../../Components/Slider/Slider";
+import Task from "./Task/Task";
+import { DATA } from "./tasks/other";
+import { ITask } from "./tasks/typeTask";
 
 export type ITypeTask = "Все" | "Вёрстка" | "JavaScript" | "Общие";
+type ISort = "levelMore" | "levelLess" | "dateMore" | "dateLess";
 
 const TASKS: ITypeTask[] = ["Все", "Вёрстка", "JavaScript", "Общие"];
 const DEFAULT_SELECT_TYPE_TASKS: ITypeTask = "Все";
@@ -13,8 +17,25 @@ export default function TasksBook(): JSX.Element {
   const [selectTypeTasks, setSelectTypeTasks] = useState<ITypeTask>(
     DEFAULT_SELECT_TYPE_TASKS
   );
-  const [minHardLevel, setMinHardLevel] = useState<number>(0);
-  const [maxHardLevel, setMaxHardLevel] = useState<number>(100);
+  const [minLevel, setMinLevel] = useState<number>(0);
+  const [maxLevel, setMaxLevel] = useState<number>(100);
+  const [typeSort, setTypeSort] = useState<ISort>("levelMore");
+
+  const sortTasks = (a: ITask, b: ITask): number => {
+    if (typeSort === "levelMore") {
+      return a.level - b.level;
+    }
+    if (typeSort === "levelLess") {
+      return b.level - a.level;
+    }
+    if (typeSort === "dateMore") {
+      return b.date.getTime() - a.date.getTime();
+    }
+    if (typeSort === "dateLess") {
+      return a.date.getTime() - b.date.getTime();
+    }
+    throw Error("Сортировка не сработала, передали несуществующий typeSort");
+  };
 
   return (
     <div className="TasksBook">
@@ -26,24 +47,30 @@ export default function TasksBook(): JSX.Element {
       <div className="TasksBook__filter">
         <div className="TasksBook__filterHard">
           <p>
-            Сложность от {minHardLevel} до {maxHardLevel}
+            Сложность от {minLevel} до {maxLevel}
           </p>
           <Slider
             width={180}
-            valueFrom={minHardLevel}
-            valueTo={maxHardLevel}
-            //@ts-ignore разобраться с типизацией
-            changeFrom={setMinHardLevel}
-            //@ts-ignore разобраться с типизацией
-            changeTo={setMaxHardLevel}
+            valueFrom={minLevel}
+            valueTo={maxLevel}
+            //@ts-ignore TODO разобраться с типизацией
+            changeFrom={setMinLevel}
+            //@ts-ignore TODO разобраться с типизацией
+            changeTo={setMaxLevel}
           />
         </div>
         <div className="TasksBook__filterSort">
-          <select>
-            <option>По возрастанию сложности</option>
-            <option>По убыванию сложности</option>
-            <option>Сначала новее</option>
-            <option>Сначала старее</option>
+          <select
+            onChange={(e) => {
+              // @ts-ignore нужная строка гарантируется
+              setTypeSort(e.target.value);
+            }}
+            value={typeSort}
+          >
+            <option value="levelMore">По возрастанию сложности</option>
+            <option value="levelLess">По убыванию сложности</option>
+            <option value="dateMore">Сначала новее</option>
+            <option value="dateLess">Сначала старее</option>
           </select>
         </div>
         <div className="TasksBook__filterFind">
@@ -52,70 +79,11 @@ export default function TasksBook(): JSX.Element {
         </div>
       </div>
       <div className="TasksBook__tasks">
-        <div className="TasksBook__task">
-          <div className="TasksBook__taskHeader">
-            <p className="TasksBook__taskHard">Сложность 12</p>
-            <p className="TasksBook__taskNumber">№1</p>
-          </div>
-
-          <div className="TasksBook__taskBody">
-            <div className="TasksBook__task_column">
-              <div className="TasksBook__taskDescription">
-                <p>Описание</p>
-                <p>
-                  Полное описание какой-то задачи, чтобы оно занимало ровно
-                  половину от ширины экрана. Однако этот пример должен в самой
-                  лучшей форме описывать всё то, что нужно для решения задачи.
-                  Понимаю, что пишу полную фигню, но надо просто занять как
-                  можно больше места.
-                </p>
-              </div>
-              <div className="TasksBook__taskRemarks">
-                <p>Описание</p>
-                <ul>
-                  <li>Первое замечание</li>
-                  <li>Второе замечание</li>
-                  <li>Третье замечание</li>
-                </ul>
-              </div>
-            </div>
-            <div className="TasksBook__task_column">
-              <p>Пример</p>
-            </div>
-          </div>
-        </div>
-        <div className="TasksBook__task">
-          <div className="TasksBook__taskHeader">
-            <p className="TasksBook__taskHard">Сложность 12</p>
-            <p className="TasksBook__taskNumber">№1</p>
-          </div>
-
-          <div className="TasksBook__taskBody">
-            <div className="TasksBook__task_column">
-              <div className="TasksBook__taskDescription">
-                <p>Описание</p>
-                <p>
-                  Полное описание какой-то задачи, чтобы оно занимало ровно
-                  половину от ширины экрана. Однако этот пример должен в самой
-                  лучшей форме описывать всё то, что нужно для решения задачи.
-                  Понимаю, что пишу полную фигню, но надо просто занять как
-                  можно больше места.
-                </p>
-              </div>
-              <div className="TasksBook__taskRemarks">
-                <p>Описание</p>
-                <ul>
-                  <li>Первое замечание</li>
-                  <li>Второе замечание</li>
-                  <li>Третье замечание</li>
-                </ul>
-              </div>
-            </div>
-            <div className="TasksBook__task_column">
-              <p>Пример</p>
-            </div>
-          </div>
-        </div>
+        {DATA.sort((a, b) => sortTasks(a, b)).map((item: ITask, i: number) => {
+          if (item.level < maxLevel && item.level > minLevel) {
+            return <Task key={i} {...item} />;
+          }
+        })}
       </div>
     </div>
   );

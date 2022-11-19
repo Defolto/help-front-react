@@ -20,12 +20,11 @@ export default function Slider({
   const [localTo, setLocalTo] = useState<number>(valueTo);
   const [active, setActive] = useState<boolean>(false);
 
-  const slider = useRef<HTMLDivElement | null>(null);
   const from = useRef<HTMLDivElement | null>(null);
   const to = useRef<HTMLDivElement | null>(null);
 
   const onChangeValue = (e: any, ball: "from" | "to"): void => {
-    if (!active || !slider.current) {
+    if (!active) {
       return;
     }
 
@@ -48,7 +47,7 @@ export default function Slider({
   };
 
   return (
-    <div className="Slider" style={{ width: width + "px" }} ref={slider}>
+    <div className="Slider" style={{ width: width + "px" }}>
       <div className="Slider__from" style={{ width: localFrom + "%" }}>
         <div
           ref={from}
