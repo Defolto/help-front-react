@@ -2,6 +2,7 @@ import "./TasksBook.css";
 import Nav from "../../Components/Nav/Nav";
 import { useState } from "react";
 import SearchIcon from "./icons/SearchIcon";
+import Slider from "../../Components/Slider/Slider";
 
 export type ITypeTask = "Все" | "Вёрстка" | "JavaScript" | "Общие";
 
@@ -9,9 +10,11 @@ const TASKS: ITypeTask[] = ["Все", "Вёрстка", "JavaScript", "Общи�
 const DEFAULT_SELECT_TYPE_TASKS: ITypeTask = "Все";
 
 export default function TasksBook(): JSX.Element {
-  const [selectTypeTasks, setSelectTypeTasks] = useState(
+  const [selectTypeTasks, setSelectTypeTasks] = useState<ITypeTask>(
     DEFAULT_SELECT_TYPE_TASKS
   );
+  const [minHardLevel, setMinHardLevel] = useState<number>(0);
+  const [maxHardLevel, setMaxHardLevel] = useState<number>(100);
 
   return (
     <div className="TasksBook">
@@ -23,9 +26,25 @@ export default function TasksBook(): JSX.Element {
       <div className="TasksBook__filter">
         <div className="TasksBook__filterHard">
           <p>
-            Уровень сложности: <span>15</span>
+            Сложность от {minHardLevel} до {maxHardLevel}
           </p>
-          <input type="range" />
+          <Slider
+            width={180}
+            valueFrom={minHardLevel}
+            valueTo={maxHardLevel}
+            //@ts-ignore разобраться с типизацией
+            changeFrom={setMinHardLevel}
+            //@ts-ignore разобраться с типизацией
+            changeTo={setMaxHardLevel}
+          />
+        </div>
+        <div className="TasksBook__filterSort">
+          <select>
+            <option>По возрастанию сложности</option>
+            <option>По убыванию сложности</option>
+            <option>Сначала новее</option>
+            <option>Сначала старее</option>
+          </select>
         </div>
         <div className="TasksBook__filterFind">
           <input placeholder="Номер задачи" type="number" />

@@ -1,0 +1,39 @@
+.Slider {
+  height: 2px;
+  position: relative;
+  background-color: grey;
+
+  &__from {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+
+    .Slider__ball {
+      position: absolute;
+      right: -5px;
+    }
+  }
+
+  &__to {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+
+    .Slider__ball {
+      position: absolute;
+      left: -5px;
+    }
+  }
+
+  &__ball {
+    width: 10px;
+    height: 10px;
+    transform: translateY(-4px);
+    background-color: #278fb0;
+    border-radius: 50%;
+    transition: 0.1s;
+    z-index: 2;
+  }
+}
