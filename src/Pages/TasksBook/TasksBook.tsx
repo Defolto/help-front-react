@@ -1,25 +1,37 @@
 import "./TasksBook.css";
 import Nav from "../../Components/Nav/Nav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchIcon from "./icons/SearchIcon";
 import Slider from "../../Components/Slider/Slider";
 import Task from "./Task/Task";
-import { DATA } from "./tasks/other";
 import { ITask } from "./tasks/typeTask";
+import { useAppDispatch } from "../../hooks";
+import { showAlert } from "../../Components/Alert/AlertSlice";
 
 export type ITypeTask = "Все" | "Вёрстка" | "JavaScript" | "Общие";
 type ISort = "levelMore" | "levelLess" | "dateMore" | "dateLess";
 
 const TASKS: ITypeTask[] = ["Все", "Вёрстка", "JavaScript", "Общие"];
-const DEFAULT_SELECT_TYPE_TASKS: ITypeTask = "Все";
+const DEFAULT_SELECT_TYPE_TASKS: ITypeTask = "Общие";
+
+function getFileName(type:ITypeTask):string {
+  if (type === "Общие") {
+    return "other"
+  }
+  return ''
+}
 
 export default function TasksBook(): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const [selectTypeTasks, setSelectTypeTasks] = useState<ITypeTask>(
     DEFAULT_SELECT_TYPE_TASKS
   );
   const [minLevel, setMinLevel] = useState<number>(0);
   const [maxLevel, setMaxLevel] = useState<number>(100);
   const [typeSort, setTypeSort] = useState<ISort>("levelMore");
+  const [number, setNumber] = useState<number>(0);
+  const [showTasks, setShowTasks] = useState<ITask[]>([])
 
   const sortTasks = (a: ITask, b: ITask): number => {
     if (typeSort === "levelMore") {
@@ -36,6 +48,26 @@ export default function TasksBook(): JSX.Element {
     }
     throw Error("Сортировка не сработала, передали несуществующий typeSort");
   };
+
+  // Загрузка задач
+  useEffect(()=>{
+    import(`./tasks/${getFileName(DEFAULT_SELECT_TYPE_TASKS)}`)
+      .then((obj) => {
+        setShowTasks(obj.DATA)
+      })
+      .catch(() => {
+        dispatch(showAlert('Задач с таким типом нет'))
+      })
+  },[])
+
+  // Поиск по номеру задачи
+  function SearchByNumber() {
+    showTasks.forEach((item)=>{
+      if (item.number === number) {
+        setShowTasks([item])
+      }
+    })
+  }
 
   return (
     <div className="TasksBook">
@@ -74,12 +106,16 @@ export default function TasksBook(): JSX.Element {
           </select>
         </div>
         <div className="TasksBook__filterFind">
-          <input placeholder="Номер задачи" type="number" />
+          <input onChange={(e:any) => {setNumber(parseInt(e.target.value))}} placeholder="Номер задачи" type="number" />
           <SearchIcon />
         </div>
       </div>
       <div className="TasksBook__tasks">
-        {DATA.sort((a, b) => sortTasks(a, b)).map((item: ITask, i: number) => {
+        {number ? showTasks.map((item, i)=>{
+          if (item.number === number){
+            return <Task key={i} {...item} />;
+          }
+        }) : showTasks.sort((a, b) => sortTasks(a, b)).map((item: ITask, i: number) => {
           if (item.level < maxLevel && item.level > minLevel) {
             return <Task key={i} {...item} />;
           }
