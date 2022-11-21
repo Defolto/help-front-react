@@ -1,4 +1,5 @@
 import Nav from "../../Components/Nav/Nav";
+import Preloader from "./Preloader";
 import React, { useEffect, useState, Suspense } from "react";
 import { showAlert } from "../../Components/Alert/AlertSlice";
 import { useAppDispatch } from "../../hooks";
@@ -79,7 +80,7 @@ export default function LearnBook(): JSX.Element {
     <div className="LearnBook">
       <Nav items={COURSES} activeItem={selectTheme} onSelect={onSelectTheme} />
 
-      <Suspense fallback={<div>Загрузка...</div>}>
+      <Suspense fallback={<Preloader />}>
         {courses.length > 1 ? (
           <PageComponent />
         ) : (
