@@ -1,7 +1,7 @@
 import "./Home.css";
 import AnimateText from "./AnimateText/AnimateText";
 //@ts-ignore
-// import img from "./qr_telegram.jpg";
+import img from "./qr_telegram.jpg";
 
 export default function Home(): JSX.Element {
   return (
@@ -18,7 +18,7 @@ export default function Home(): JSX.Element {
       </div>
       <div className="Home__linkTelegram">
         <div className="Home__linkTelegramImg">
-          {/* <img src={img} alt="ссылка на телеграм" /> */}
+          <img src={img} alt="ссылка на телеграм" />
         </div>
         <p className="Home__linkTelegramText">
           Присоединяйся к нам на канал, в котором мы публикуем материалы,
