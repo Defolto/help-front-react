@@ -15,6 +15,15 @@ const TASKS: ITypeTask[] = ["Все", "Вёрстка", "JavaScript", "Общи�
 const DEFAULT_SELECT_TYPE_TASKS: ITypeTask = "Общие";
 
 function getFileName(type: ITypeTask): string {
+  if (type === "Все"){
+    return "Все"
+  }
+  if (type === "Вёрстка") {
+    return "layout";
+  }
+  if (type === "JavaScript") {
+    return "javaScript";
+  }
   if (type === "Общие") {
     return "other";
   }
@@ -60,6 +69,33 @@ export default function TasksBook(): JSX.Element {
         dispatch(showAlert("Задач с таким типом нет"));
       });
   }, []);
+
+  //Загрузка других типов задач
+  useEffect(() => {
+    if (getFileName(selectTypeTasks) !== "Все"){
+      import(`./tasks/${getFileName(selectTypeTasks)}`)
+        .then((obj) => {
+          setShowTasks(obj.DATA);
+        })
+        .catch(() => {
+          dispatch(showAlert("Задач с таким типом нет"));
+        });
+    }else{ //Выполняется когда надо отобразить все задачи
+      setShowTasks([]) //Обнуляю массив чтобы не было повторений иначе 1ое задание будет повторяться
+      import(`./tasks/other`)
+          .then((obj) => {
+            setShowTasks(prev=>prev?.concat(obj.DATA));
+          })
+      import(`./tasks/layout`)
+          .then((obj) => {
+            setShowTasks(prev=>prev?.concat(obj.DATA));
+          })
+      import(`./tasks/javaScript`)
+          .then((obj) => {
+            setShowTasks(prev=>prev?.concat(obj.DATA));
+          })
+    }
+  }, [selectTypeTasks]);
 
   return (
     <div className="TasksBook">
