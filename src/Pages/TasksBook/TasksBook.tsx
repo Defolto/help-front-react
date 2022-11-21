@@ -14,11 +14,11 @@ type ISort = "levelMore" | "levelLess" | "dateMore" | "dateLess";
 const TASKS: ITypeTask[] = ["Все", "Вёрстка", "JavaScript", "Общие"];
 const DEFAULT_SELECT_TYPE_TASKS: ITypeTask = "Общие";
 
-function getFileName(type:ITypeTask):string {
+function getFileName(type: ITypeTask): string {
   if (type === "Общие") {
-    return "other"
+    return "other";
   }
-  return ''
+  throw Error("Передан несуществующий тип задач");
 }
 
 export default function TasksBook(): JSX.Element {
@@ -31,8 +31,9 @@ export default function TasksBook(): JSX.Element {
   const [maxLevel, setMaxLevel] = useState<number>(100);
   const [typeSort, setTypeSort] = useState<ISort>("levelMore");
   const [number, setNumber] = useState<number>(0);
-  const [showTasks, setShowTasks] = useState<ITask[]>([])
+  const [showTasks, setShowTasks] = useState<ITask[]>([]);
 
+  // сортировка задач исходя из select
   const sortTasks = (a: ITask, b: ITask): number => {
     if (typeSort === "levelMore") {
       return a.level - b.level;
@@ -49,25 +50,16 @@ export default function TasksBook(): JSX.Element {
     throw Error("Сортировка не сработала, передали несуществующий typeSort");
   };
 
-  // Загрузка задач
-  useEffect(()=>{
+  // Для первой загрузки дефолтных задач
+  useEffect(() => {
     import(`./tasks/${getFileName(DEFAULT_SELECT_TYPE_TASKS)}`)
       .then((obj) => {
-        setShowTasks(obj.DATA)
+        setShowTasks(obj.DATA);
       })
       .catch(() => {
-        dispatch(showAlert('Задач с таким типом нет'))
-      })
-  },[])
-
-  // Поиск по номеру задачи
-  function SearchByNumber() {
-    showTasks.forEach((item)=>{
-      if (item.number === number) {
-        setShowTasks([item])
-      }
-    })
-  }
+        dispatch(showAlert("Задач с таким типом нет"));
+      });
+  }, []);
 
   return (
     <div className="TasksBook">
@@ -106,20 +98,30 @@ export default function TasksBook(): JSX.Element {
           </select>
         </div>
         <div className="TasksBook__filterFind">
-          <input onChange={(e:any) => {setNumber(parseInt(e.target.value))}} placeholder="Номер задачи" type="number" />
+          <input
+            onChange={(e: any) => {
+              setNumber(parseInt(e.target.value));
+            }}
+            placeholder="Номер задачи"
+            type="number"
+          />
           <SearchIcon />
         </div>
       </div>
       <div className="TasksBook__tasks">
-        {number ? showTasks.map((item, i)=>{
-          if (item.number === number){
-            return <Task key={i} {...item} />;
-          }
-        }) : showTasks.sort((a, b) => sortTasks(a, b)).map((item: ITask, i: number) => {
-          if (item.level < maxLevel && item.level > minLevel) {
-            return <Task key={i} {...item} />;
-          }
-        })}
+        {number
+          ? showTasks.map((item, i) => {
+              if (item.number === number) {
+                return <Task key={i} {...item} />;
+              }
+            })
+          : showTasks
+              .sort((a, b) => sortTasks(a, b))
+              .map((item: ITask, i: number) => {
+                if (item.level < maxLevel && item.level > minLevel) {
+                  return <Task key={i} {...item} />;
+                }
+              })}
       </div>
     </div>
   );
