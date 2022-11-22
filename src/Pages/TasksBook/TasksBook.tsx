@@ -1,12 +1,11 @@
 import "./TasksBook.css";
 import Nav from "../../Components/Nav/Nav";
 import { useEffect, useState } from "react";
-import SearchIcon from "./icons/SearchIcon";
-import Slider from "../../Components/Slider/Slider";
 import Task from "./Task/Task";
 import { ITask } from "./tasks/typeTask";
 import { useAppDispatch } from "../../hooks";
 import { showAlert } from "../../Components/Alert/AlertSlice";
+import Filter from "../../Components/Filter/Filter";
 
 export type ITypeTask = "Все" | "Вёрстка" | "JavaScript" | "Общие";
 type ISort = "levelMore" | "levelLess" | "dateMore" | "dateLess";
@@ -68,46 +67,16 @@ export default function TasksBook(): JSX.Element {
         activeItem={selectTypeTasks}
         onSelect={setSelectTypeTasks}
       />
-      <div className="TasksBook__filter">
-        <div className="TasksBook__filterHard">
-          <p>
-            Сложность от {minLevel} до {maxLevel}
-          </p>
-          <Slider
-            width={180}
-            valueFrom={minLevel}
-            valueTo={maxLevel}
-            //@ts-ignore TODO разобраться с типизацией
-            changeFrom={setMinLevel}
-            //@ts-ignore TODO разобраться с типизацией
-            changeTo={setMaxLevel}
-          />
-        </div>
-        <div className="TasksBook__filterSort">
-          <select
-            onChange={(e) => {
-              // @ts-ignore нужная строка гарантируется
-              setTypeSort(e.target.value);
-            }}
-            value={typeSort}
-          >
-            <option value="levelMore">По возрастанию сложности</option>
-            <option value="levelLess">По убыванию сложности</option>
-            <option value="dateMore">Сначала новее</option>
-            <option value="dateLess">Сначала старее</option>
-          </select>
-        </div>
-        <div className="TasksBook__filterFind">
-          <input
-            onChange={(e: any) => {
-              setNumber(parseInt(e.target.value));
-            }}
-            placeholder="Номер задачи"
-            type="number"
-          />
-          <SearchIcon />
-        </div>
-      </div>
+      <Filter
+        find={{ number, changeNumber: setNumber }}
+        level={{
+          minLevel,
+          maxLevel,
+          changeMaxLevel: setMaxLevel,
+          changeMinLevel: setMinLevel,
+        }}
+        sort={{ type: typeSort, changeType: setTypeSort }}
+      />
       <div className="TasksBook__tasks">
         {number
           ? showTasks.map((item, i) => {
