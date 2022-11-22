@@ -22,3 +22,4 @@ export default function LinkHeader({ to, icon, text }: Props): JSX.Element {
     </div>
   );
 }
+//Тут надо будет что-то писать
