@@ -1,4 +1,4 @@
-import { ICourse } from "../LearnBook";
+                                                                                                                                                                                                    import { ICourse } from "../LearnBook";
 import "./LineTheme.css";
 
 type ILineTheme = {

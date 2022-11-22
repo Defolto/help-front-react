@@ -1,0 +1,63 @@
+.Preloader{
+  font-size: x-large;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .Preloader_text{
+    margin-bottom: 15px;
+  }
+}
+.Preloader_loads {
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background-color: #fff;
+  height: 85px;
+  width: 85px;
+  border: black 8px solid;
+  border-radius: 50%;
+  animation: falling 1.5s ease-in-out infinite;
+
+  &::after {
+    position: absolute;
+    transform: rotateZ(0deg);
+    content: "";
+    width: 25px;
+    height: 10px;
+    background-color: black;
+    animation: spin 3s infinite linear;
+  }
+
+  &::before {
+    position: absolute;
+    transform: rotateZ(0deg);
+    content: "";
+    width: 39px;
+    height: 10px;
+    background-color: black;
+    animation: spin 1s infinite linear;
+  }
+}
+@keyframes spin{
+  from{
+    transform:rotateZ(0deg) translateX(15px);
+  }
+  to{
+    transform: rotateZ(360deg) translateX(15px);
+  }
+}
+@keyframes falling{
+  0%{
+    transform: translateY(0px);
+  }
+  50%{
+    transform: translateY(50px);
+  }
+  100%{
+    transform: translateY(0px);
+  }
+}
