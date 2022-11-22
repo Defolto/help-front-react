@@ -59,6 +59,22 @@ export default function TasksBook(): JSX.Element {
     throw Error("Сортировка не сработала, передали несуществующий typeSort");
   };
 
+  function importAllTasks() {
+    setShowTasks([])//Обнуляю массив чтобы не было повторений иначе 1ое задание будет повторяться
+    import(`./tasks/other`)
+        .then((obj) => {
+          setShowTasks(prev=>prev.concat(obj.DATA));
+        })
+    import(`./tasks/javaScript`)
+        .then((obj) => {
+          setShowTasks(prev=>prev.concat(obj.DATA));
+        })
+    import(`./tasks/layout`)
+        .then((obj) => {
+          setShowTasks(prev=>prev.concat(obj.DATA));
+        })
+  }
+
   // Для первой загрузки дефолтных задач
   useEffect(() => {
     import(`./tasks/${getFileName(DEFAULT_SELECT_TYPE_TASKS)}`)
@@ -81,19 +97,10 @@ export default function TasksBook(): JSX.Element {
           dispatch(showAlert("Задач с таким типом нет"));
         });
     }else{ //Выполняется когда надо отобразить все задачи
-      setShowTasks([]) //Обнуляю массив чтобы не было повторений иначе 1ое задание будет повторяться
-      import(`./tasks/other`)
-          .then((obj) => {
-            setShowTasks(prev=>prev?.concat(obj.DATA));
-          })
-      import(`./tasks/layout`)
-          .then((obj) => {
-            setShowTasks(prev=>prev?.concat(obj.DATA));
-          })
-      import(`./tasks/javaScript`)
-          .then((obj) => {
-            setShowTasks(prev=>prev?.concat(obj.DATA));
-          })
+      importAllTasks()
+    //   for (let i = 0; i < showTasks.length; i++) {
+    //     console.log(showTasks[i].number)
+    //   }
     }
   }, [selectTypeTasks]);
 
