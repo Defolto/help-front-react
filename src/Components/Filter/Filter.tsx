@@ -1,7 +1,9 @@
 import "./Filter.css";
 import Slider from "../Slider/Slider";
 import SearchIcon from "./SearchIcon";
+import { ITask } from "../../Pages/TasksBook/tasks/typeTask";
 
+export type ISort = "levelMore" | "levelLess" | "dateMore" | "dateLess";
 type Props = {
   level: {
     minLevel: number;
@@ -17,6 +19,23 @@ type Props = {
     number: number;
     changeNumber: (value: number) => void;
   };
+};
+
+// сортировка задач исходя из select
+export const sortTasks = (typeSort: ISort, a: ITask, b: ITask): number => {
+  if (typeSort === "levelMore") {
+    return a.level - b.level;
+  }
+  if (typeSort === "levelLess") {
+    return b.level - a.level;
+  }
+  if (typeSort === "dateMore") {
+    return b.date.getTime() - a.date.getTime();
+  }
+  if (typeSort === "dateLess") {
+    return a.date.getTime() - b.date.getTime();
+  }
+  throw Error("Сортировка не сработала, передали несуществующий typeSort");
 };
 
 export default function Filter({ level, find, sort }: Props): JSX.Element {
