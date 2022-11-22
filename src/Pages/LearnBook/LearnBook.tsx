@@ -1,5 +1,5 @@
 import Nav from "../../Components/Nav/Nav";
-import Preloader from "./Preloader";
+import Preloader from "../../Components/Preloader/Preloader";
 import React, { useEffect, useState, Suspense } from "react";
 import { showAlert } from "../../Components/Alert/AlertSlice";
 import { useAppDispatch } from "../../hooks";
