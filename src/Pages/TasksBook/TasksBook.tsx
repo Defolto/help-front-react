@@ -5,10 +5,9 @@ import Task from "./Task/Task";
 import { ITask } from "./tasks/typeTask";
 import { useAppDispatch } from "../../hooks";
 import { showAlert } from "../../Components/Alert/AlertSlice";
-import Filter from "../../Components/Filter/Filter";
+import Filter, { ISort, sortTasks } from "../../Components/Filter/Filter";
 
 export type ITypeTask = "Все" | "Вёрстка" | "JavaScript" | "Общие";
-type ISort = "levelMore" | "levelLess" | "dateMore" | "dateLess";
 
 const TASKS: ITypeTask[] = ["Все", "Вёрстка", "JavaScript", "Общие"];
 const DEFAULT_SELECT_TYPE_TASKS: ITypeTask = "Общие";
@@ -41,37 +40,20 @@ export default function TasksBook(): JSX.Element {
   const [number, setNumber] = useState<number>(0);
   const [showTasks, setShowTasks] = useState<ITask[]>([]);
 
-  // сортировка задач исходя из select
-  const sortTasks = (a: ITask, b: ITask): number => {
-    if (typeSort === "levelMore") {
-      return a.level - b.level;
-    }
-    if (typeSort === "levelLess") {
-      return b.level - a.level;
-    }
-    if (typeSort === "dateMore") {
-      return b.date.getTime() - a.date.getTime();
-    }
-    if (typeSort === "dateLess") {
-      return a.date.getTime() - b.date.getTime();
-    }
-    throw Error("Сортировка не сработала, передали несуществующий typeSort");
-  };
-
   function importAllTasks() {
     setShowTasks([])//Обнуляю массив чтобы не было повторений иначе 1ое задание будет повторяться
     import(`./tasks/other`)
-        .then((obj) => {
-          setShowTasks(prev=>prev.concat(obj.DATA));
-        })
+      .then((obj) => {
+        setShowTasks(prev=>prev.concat(obj.DATA));
+      })
     import(`./tasks/javaScript`)
-        .then((obj) => {
-          setShowTasks(prev=>prev.concat(obj.DATA));
-        })
+      .then((obj) => {
+        setShowTasks(prev=>prev.concat(obj.DATA));
+      })
     import(`./tasks/layout`)
-        .then((obj) => {
-          setShowTasks(prev=>prev.concat(obj.DATA));
-        })
+      .then((obj) => {
+        setShowTasks(prev=>prev.concat(obj.DATA));
+      })
   }
 
   // Для первой загрузки дефолтных задач
@@ -128,7 +110,7 @@ export default function TasksBook(): JSX.Element {
               }
             })
           : showTasks
-              .sort((a, b) => sortTasks(a, b))
+              .sort((a, b) => sortTasks(typeSort, a, b))
               .map((item: ITask, i: number) => {
                 if (item.level < maxLevel && item.level > minLevel) {
                   return <Task key={i} {...item} />;
