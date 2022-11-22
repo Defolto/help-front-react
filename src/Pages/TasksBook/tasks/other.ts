@@ -5,7 +5,7 @@ export const DATA: ITask[] = [
     number: 1,
     level: 1,
     date: setDateTask("19.11.2022"),
-    description: "Просто что-то для примера",
+    description: "Общие задачи",
     notes: ["Первая заметка", "Вторая азметка"],
     example: {
       inData: [1, 2, 3, 4],
@@ -16,7 +16,7 @@ export const DATA: ITask[] = [
     number: 2,
     level: 50,
     date: setDateTask("18.11.2022"),
-    description: "Просто что-то для примера 12",
+    description: "Общие задачи2",
     notes: ["Первая заметка 12", "Вторая азметка 12"],
     example: {
       inData: [1, 2, 5, 4],
@@ -27,100 +27,11 @@ export const DATA: ITask[] = [
     number: 3,
     level: 99,
     date: setDateTask("17.11.2022"),
-    description: "12 Просто что-то для примера",
+    description: "Общие задачи3",
     notes: [" 12Первая заметка", "12 Вторая азметка"],
     example: {
       inData: [10, 2, 3, 4],
       outData: [5, 60, 7, 8],
     },
   },
-  {
-    number: 4,
-    level: 35,
-    date: setDateTask("20.11.2022"),
-    description: "12 Просто что-то для примера",
-    notes: [" 12Первая заметка", "12 Вторая азметка"],
-    example: {
-      inData: [10, 2, 3, 4],
-      outData: [5, 60, 7, 8],
-    },
-  },
-  {
-    number: 5,
-    level: 35,
-    date: setDateTask("20.11.2022"),
-    description: "12 Просто что-то для примера",
-    notes: [" 12Первая заметка", "12 Вторая азметка"],
-    example: {
-      inData: [10, 2, 3, 4],
-      outData: [5, 60, 7, 8],
-    },
-  },
-  {
-    number: 6,
-    level: 35,
-    date: setDateTask("20.11.2022"),
-    description: "12 Просто что-то для примера",
-    notes: [" 12Первая заметка", "12 Вторая азметка"],
-    example: {
-      inData: [10, 2, 3, 4],
-      outData: [5, 60, 7, 8],
-    },
-  },
-  {
-    number: 7,
-    level: 35,
-    date: setDateTask("20.11.2022"),
-    description: "12 Просто что-то для примера",
-    notes: [" 12Первая заметка", "12 Вторая азметка"],
-    example: {
-      inData: [10, 2, 3, 4],
-      outData: [5, 60, 7, 8],
-    },
-  },
-  {
-    number: 8,
-    level: 35,
-    date: setDateTask("20.11.2022"),
-    description: "12 Просто что-то для примера",
-    notes: [" 12Первая заметка", "12 Вторая азметка"],
-    example: {
-      inData: [10, 2, 3, 4],
-      outData: [5, 60, 7, 8],
-    },
-  },
-  {
-    number: 9,
-    level: 35,
-    date: setDateTask("20.11.2022"),
-    description: "12 Просто что-то для примера",
-    notes: [" 12Первая заметка", "12 Вторая азметка"],
-    example: {
-      inData: [10, 2, 3, 4],
-      outData: [5, 60, 7, 8],
-    },
-  },
-  {
-    number: 10,
-    level: 35,
-    date: setDateTask("20.11.2022"),
-    description: "12 Просто что-то для примера",
-    notes: [" 12Первая заметка", "12 Вторая азметка"],
-    example: {
-      inData: [10, 2, 3, 4],
-      outData: [5, 60, 7, 8],
-    },
-  },
-  {
-    number: 11,
-    level: 35,
-    date: setDateTask("20.11.2022"),
-    description: "12 Просто что-то для примера",
-    notes: [" 12Первая заметка", "12 Вторая азметка"],
-    example: {
-      inData: [10, 2, 3, 4],
-      outData: [5, 60, 7, 8],
-    },
-  },
-
 ];
