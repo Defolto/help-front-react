@@ -1,0 +1,57 @@
+@import "../../_constans";
+
+.Filter {
+  display: flex;
+  flex-direction: row;
+  padding: 15px @paddingMainContent;
+
+  &__level {
+    margin-right: 30px;
+
+    p {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__sort {
+    margin-right: 30px;
+
+    select {
+      margin-top: 2px;
+      padding: 4px 2px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__find {
+    display: flex;
+    flex-direction: row;
+    margin: auto 0;
+
+    & > svg {
+      border: 1px solid black;
+      border-left: none;
+      padding: 2px;
+      cursor: pointer;
+    }
+
+    input {
+      border: 1px solid black;
+      border-right: none;
+      padding: 2px;
+
+      &:focus {
+        outline: none;
+      }
+
+      // убираем стрелки у input
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    }
+  }
+}
