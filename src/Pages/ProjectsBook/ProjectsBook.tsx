@@ -2,6 +2,8 @@ import Nav from "../../Components/Nav/Nav";
 import { useState } from "react";
 import { ITask } from "../TasksBook/tasks/typeTask";
 import Filter, { ISort } from "../../Components/Filter/Filter";
+import { showAlert } from "../../Components/Alert/AlertSlice";
+import { useAppDispatch } from "../../hooks";
 
 type IThemeProjects = "Приложения" | "Сайты" | "Проектирование" | "Компоненты";
 
@@ -9,6 +11,8 @@ const THEMES_PROJECTS = ["Сайты", "Приложения", "Проектир
 const DEFAULT_SELECT_THEME_PROJECT: IThemeProjects = "Сайты";
 
 export default function ProjectsBook(): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const [selectThemeProjects, setSelectThemeProjects] =
     useState<IThemeProjects>(DEFAULT_SELECT_THEME_PROJECT);
   const [minLevel, setMinLevel] = useState<number>(0);
@@ -34,6 +38,9 @@ export default function ProjectsBook(): JSX.Element {
         }}
         sort={{ type: typeSort, changeType: setTypeSort }}
       />
+      <div onClick={() => dispatch(showAlert(<div>Компонентый алерт</div>))}>
+        Проверка на новый компонент
+      </div>
     </div>
   );
 }

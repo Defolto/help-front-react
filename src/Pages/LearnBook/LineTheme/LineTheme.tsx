@@ -1,4 +1,4 @@
-                                                                                                                                                                                                    import { ICourse } from "../LearnBook";
+import { ICourse } from "../LearnBook";
 import "./LineTheme.css";
 
 type ILineTheme = {
@@ -28,7 +28,7 @@ export default function LineTheme({
               );
             }}
             className="LineTheme__point"
-            key={theme}
+            key={`${theme}${point}`}
           >
             {theme}.{point} {title}
           </p>

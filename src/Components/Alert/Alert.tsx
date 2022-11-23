@@ -1,22 +1,50 @@
 import "./Alert.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { clearTextAlert } from "./AlertSlice";
+import { clearAlert } from "./AlertSlice";
+import { ReactElement } from "react";
 
-export default function Alert(): JSX.Element {
+type PropsSampleAlert = {
+  children: ReactElement;
+};
+
+function SampleAlert({ children }: PropsSampleAlert): JSX.Element {
   const dispatch = useAppDispatch();
-  const textAlert = useAppSelector((state) => state.alert.text);
 
   return (
-    <div className={`Alert ${textAlert ? "Alert_show" : ""}`}>
-      <div className="Alert__content">
-        <p className="Alert__content_title">{textAlert}</p>
-        <p
-          className="Alert__content_close"
-          onClick={() => dispatch(clearTextAlert())}
-        >
-          Закрыть
-        </p>
+    <div className="Alert" onClick={() => dispatch(clearAlert())}>
+      <div className="Alert__content" onClick={(e) => e.stopPropagation()}>
+        {children}
       </div>
     </div>
   );
+}
+
+export default function Alert(): JSX.Element | null {
+  const dispatch = useAppDispatch();
+  const contentAlert = useAppSelector((state) => state.alert.content);
+
+  // Не показываем алерт
+  if (!contentAlert) {
+    return null;
+  }
+
+  // Показываем простой текстовый алерт
+  if (typeof contentAlert === "string") {
+    return (
+      <SampleAlert>
+        <>
+          <p className="Alert__content_title">{contentAlert}</p>
+          <p
+            className="Alert__content_close"
+            onClick={() => dispatch(clearAlert())}
+          >
+            Закрыть
+          </p>
+        </>
+      </SampleAlert>
+    );
+  }
+
+  // Показываем компонентый алерт
+  return <SampleAlert>{contentAlert}</SampleAlert>;
 }

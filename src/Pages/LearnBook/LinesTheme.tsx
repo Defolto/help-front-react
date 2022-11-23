@@ -12,6 +12,7 @@ export default function LinesTheme({ infoTheme, course }: Props) {
     <div className="LearnBook__lines">
       {infoTheme.map((item, index) => (
         <LineTheme
+          key={index}
           title={item.title}
           points={item.points}
           theme={index}

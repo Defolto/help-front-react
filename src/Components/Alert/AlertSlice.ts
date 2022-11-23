@@ -1,30 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CounterState {
-  text: string;
-  component?: JSX.Element;
+  content: string | JSX.Element | null;
 }
 
 const initialState: CounterState = {
-  text: "",
+  content: "",
 };
 
 export const alertSlice = createSlice({
   name: "app",
   initialState: initialState,
   reducers: {
-    showTextAlert: (state, action: PayloadAction<string>) => {
-      if (state.text === action.payload) {
-        state.text = "";
-      } else {
-        state.text = action.payload;
-      }
+    showAlert: (state, action: PayloadAction<string | JSX.Element>) => {
+      state.content = action.payload;
     },
-    clearTextAlert: (state) => {
-      state.text = "";
+    clearAlert: (state) => {
+      state.content = null;
     },
   },
 });
 
-export const { showTextAlert, clearTextAlert } = alertSlice.actions;
+export const { showAlert, clearAlert } = alertSlice.actions;
 export default alertSlice.reducer;

@@ -1,7 +1,7 @@
 import Nav from "../../Components/Nav/Nav";
 import Preloader from "../../Components/Preloader/Preloader";
 import React, { useEffect, useState, Suspense } from "react";
-import { showTextAlert } from "../../Components/Alert/AlertSlice";
+import { showAlert } from "../../Components/Alert/AlertSlice";
 import { useAppDispatch } from "../../hooks";
 import "./LearnBook.css";
 import "./pages/Page.css";
@@ -27,9 +27,10 @@ function getCourse(): ICourse {
 }
 
 export default function LearnBook(): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const [selectTheme, setSelectTheme] = useState<ICourse>(getCourse());
   const [infoTheme, setInfoTheme] = useState<ITheme[]>([]);
-  const dispatch = useAppDispatch();
 
   const onSelectTheme = (theme: ICourse): void => {
     import(`./themes/theme${theme}`)
@@ -40,7 +41,7 @@ export default function LearnBook(): JSX.Element {
       })
       .catch(() => {
         dispatch(
-          showTextAlert(
+          showAlert(
             "На данный момент, тема в разработке. Когда-нибудь она будет:)"
           )
         );
@@ -55,7 +56,7 @@ export default function LearnBook(): JSX.Element {
       })
       .catch(() => {
         dispatch(
-          showTextAlert(
+          showAlert(
             "На данный момент, тема в разработке. Когда-нибудь она будет:)"
           )
         );
