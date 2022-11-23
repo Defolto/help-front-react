@@ -1,0 +1,39 @@
+@import "../../_constans";
+@import "../../_general";
+.Header {
+  &__navigation {
+    width: @widthNavigation;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 9px 15px;
+    box-sizing: border-box;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #f1f1f1;
+    box-shadow: 3px 4px 8px 0 rgba(34, 60, 80, 0.2);
+    text-align: center;
+
+    &Menu {
+      a {
+        margin: 5px 0;
+        font-size: 18px;
+      }
+    }
+
+    &Options {
+      p {
+        margin: 5px 0;
+        font-size: 18px;
+      }
+    }
+
+    &Title {
+      font-size: 28px;
+      margin-bottom: 35px;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #333;
+      text-align: left;
+    }
+  }
+}
