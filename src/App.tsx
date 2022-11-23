@@ -8,7 +8,6 @@ import ProjectsBook from "./Pages/ProjectsBook/ProjectsBook";
 import TasksBook from "./Pages/TasksBook/TasksBook";
 import Alert from "./Components/Alert/Alert";
 import Header from "./Components/Header/Header";
-
 export default function App() {
   return (
     <div className="App">

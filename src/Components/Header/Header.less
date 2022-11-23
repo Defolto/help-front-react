@@ -12,6 +12,7 @@
     background-color: #f1f1f1;
     box-shadow: 3px 4px 8px 0 rgba(34, 60, 80, 0.2);
     text-align: center;
+    transition: 0.5s;
 
     &Menu {
       a {
@@ -29,11 +30,22 @@
 
     &Title {
       font-size: 28px;
-      margin-bottom: 35px;
-      margin-top: 10px;
       font-weight: bold;
       color: #333;
       text-align: left;
+
+      &Wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin-bottom: 35px;
+        margin-top: 10px;
+      }
+
+      &Svg {
+        margin: 0 5px;
+      }
     }
   }
 }
