@@ -1,7 +1,7 @@
 import Nav from "../../Components/Nav/Nav";
 import Preloader from "../../Components/Preloader/Preloader";
 import React, { useEffect, useState, Suspense } from "react";
-import { showAlert } from "../../Components/Alert/AlertSlice";
+import { showTextAlert } from "../../Components/Alert/AlertSlice";
 import { useAppDispatch } from "../../hooks";
 import "./LearnBook.css";
 import "./pages/Page.css";
@@ -40,7 +40,7 @@ export default function LearnBook(): JSX.Element {
       })
       .catch(() => {
         dispatch(
-          showAlert(
+          showTextAlert(
             "На данный момент, тема в разработке. Когда-нибудь она будет:)"
           )
         );
@@ -55,7 +55,7 @@ export default function LearnBook(): JSX.Element {
       })
       .catch(() => {
         dispatch(
-          showAlert(
+          showTextAlert(
             "На данный момент, тема в разработке. Когда-нибудь она будет:)"
           )
         );

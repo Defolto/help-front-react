@@ -1,6 +1,6 @@
 import "./Alert.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { showAlert } from "./AlertSlice";
+import { clearTextAlert } from "./AlertSlice";
 
 export default function Alert(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ export default function Alert(): JSX.Element {
         <p className="Alert__content_title">{textAlert}</p>
         <p
           className="Alert__content_close"
-          onClick={() => dispatch(showAlert(""))}
+          onClick={() => dispatch(clearTextAlert())}
         >
           Закрыть
         </p>

@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 import Task from "./Task/Task";
 import { ITask } from "./tasks/typeTask";
 import { useAppDispatch } from "../../hooks";
-import { showAlert } from "../../Components/Alert/AlertSlice";
 import Filter, { ISort, sortTasks } from "../../Components/Filter/Filter";
 
 export type ITypeTask = "Все" | "Вёрстка" | "JavaScript" | "Общие";
 
+// Первым элементом должно стоять "Все", иначе importAllTasks сработает неправильно
 const TASKS: ITypeTask[] = ["Все", "Вёрстка", "JavaScript", "Общие"];
 const DEFAULT_SELECT_TYPE_TASKS: ITypeTask = "Общие";
 
 function getFileName(type: ITypeTask): string {
-  if (type === "Все"){
-    return "Все"
+  if (type === "Все") {
+    throw Error(
+      "Нельзя передавать тип 'Все', для этого вызывать importAllTasks"
+    );
   }
   if (type === "Вёрстка") {
     return "layout";
@@ -41,19 +43,17 @@ export default function TasksBook(): JSX.Element {
   const [showTasks, setShowTasks] = useState<ITask[]>([]);
 
   function importAllTasks() {
-    setShowTasks([])//Обнуляю массив чтобы не было повторений иначе 1ое задание будет повторяться
-    import(`./tasks/other`)
-      .then((obj) => {
-        setShowTasks(prev=>prev.concat(obj.DATA));
-      })
-    import(`./tasks/javaScript`)
-      .then((obj) => {
-        setShowTasks(prev=>prev.concat(obj.DATA));
-      })
-    import(`./tasks/layout`)
-      .then((obj) => {
-        setShowTasks(prev=>prev.concat(obj.DATA));
-      })
+    // Обнуление массива чтобы не было повторений иначе 1ое задание будет повторяться
+    setShowTasks([]);
+    try {
+      for (let i = 1; i < TASKS.length; i++) {
+        import(`./tasks/${getFileName(TASKS[i])}`).then((obj) => {
+          setShowTasks((prev) => prev.concat(obj.DATA));
+        });
+      }
+    } catch (e) {
+      throw Error(`Невозможно загрузить все задачи`);
+    }
   }
 
   // Для первой загрузки дефолтных задач
@@ -63,27 +63,28 @@ export default function TasksBook(): JSX.Element {
         setShowTasks(obj.DATA);
       })
       .catch(() => {
-        dispatch(showAlert("Задач с таким типом нет"));
+        throw Error(
+          `DEFAULT_SELECT_TYPE_TASKS, не существует такого типа задач`
+        );
       });
-  }, []);
+  }, [dispatch]);
 
-  //Загрузка других типов задач
+  // Загрузка других типов задач
   useEffect(() => {
-    if (getFileName(selectTypeTasks) !== "Все"){
+    if (selectTypeTasks !== TASKS[0]) {
       import(`./tasks/${getFileName(selectTypeTasks)}`)
         .then((obj) => {
           setShowTasks(obj.DATA);
         })
         .catch(() => {
-          dispatch(showAlert("Задач с таким типом нет"));
+          throw Error(
+            `Неправильно передан selectTypeTasks, было ${selectTypeTasks}`
+          );
         });
-    }else{ //Выполняется когда надо отобразить все задачи
-      importAllTasks()
-    //   for (let i = 0; i < showTasks.length; i++) {
-    //     console.log(showTasks[i].number)
-    //   }
+    } else {
+      importAllTasks();
     }
-  }, [selectTypeTasks]);
+  }, [selectTypeTasks, dispatch]);
 
   return (
     <div className="TasksBook">
