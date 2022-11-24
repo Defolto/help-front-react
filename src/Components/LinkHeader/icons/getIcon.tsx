@@ -22,6 +22,6 @@ export default function getIcon(type: string): JSX.Element {
   } else if (type === "help") {
     return <Help />;
   } else {
-    return <div>Нет такой иконки</div>;
+    throw Error("Вызвана несуществующая иконка");
   }
 }

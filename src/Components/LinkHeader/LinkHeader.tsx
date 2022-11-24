@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import getIcon from "./icons/getIcon";
 
 type Props = {
+  headerProminence?: boolean;
   to: string;
   icon: string;
   text: string;
@@ -22,4 +23,3 @@ export default function LinkHeader({ to, icon, text }: Props): JSX.Element {
     </div>
   );
 }
-//Тут надо будет что-то писать
