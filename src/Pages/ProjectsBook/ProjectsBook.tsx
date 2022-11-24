@@ -1,14 +1,31 @@
 import Nav from "../../Components/Nav/Nav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ITask } from "../TasksBook/tasks/typeTask";
-import Filter, { ISort } from "../../Components/Filter/Filter";
+import Filter, { ISort, sortTasks } from "../../Components/Filter/Filter";
 import "./ProjectsBook.css";
 import Project from "./Project/Project";
+import { IProject } from "./projects/typeProject";
 
 type IThemeProjects = "Приложения" | "Сайты" | "Проектирование" | "Компоненты";
 
 const THEMES_PROJECTS = ["Сайты", "Приложения", "Проектирование", "Компоненты"];
 const DEFAULT_SELECT_THEME_PROJECT: IThemeProjects = "Сайты";
+
+function getFileName(type: IThemeProjects): string {
+  if (type === "Сайты") {
+    return "sites";
+  }
+  if (type === "Приложения") {
+    return "application";
+  }
+  if (type === "Проектирование") {
+    return "design";
+  }
+  if (type === "Компоненты") {
+    return "components";
+  }
+  throw Error("Передан несуществующий тип проектов");
+}
 
 export default function ProjectsBook(): JSX.Element {
   const [selectThemeProjects, setSelectThemeProjects] =
@@ -17,7 +34,20 @@ export default function ProjectsBook(): JSX.Element {
   const [maxLevel, setMaxLevel] = useState<number>(100);
   const [typeSort, setTypeSort] = useState<ISort>("levelMore");
   const [number, setNumber] = useState<number>(0);
-  const [showProjects, setShowProjects] = useState<ITask[]>([]);
+  const [showProjects, setShowProjects] = useState<IProject[]>([]);
+
+  // Для первой загрузки дефолтных проектов
+  useEffect(() => {
+    import(`./projects/${getFileName(DEFAULT_SELECT_THEME_PROJECT)}`)
+      .then((obj) => {
+        setShowProjects(obj.DATA);
+      })
+      .catch(() => {
+        throw Error(
+          `DEFAULT_SELECT_TYPE_TASKS, не существует такого типа задач`
+        );
+      });
+  }, []);
 
   return (
     <div className="ProjectsBook">
@@ -36,11 +66,20 @@ export default function ProjectsBook(): JSX.Element {
         }}
         sort={{ type: typeSort, changeType: setTypeSort }}
       />
-      <div className="ProjectsBook__list">
-        <Project />
-        <Project />
-        <Project />
-        <Project />
+      <div className="ProjectsBook__projects">
+        {number
+          ? showProjects.map((item, i) => {
+              if (item.number === number) {
+                return <Project {...item} key={i} />;
+              }
+            })
+          : showProjects
+              .sort((a, b) => sortTasks(typeSort, a, b))
+              .map((item: IProject, i: number) => {
+                if (item.level < maxLevel && item.level > minLevel) {
+                  return <Project {...item} key={i} />;
+                }
+              })}
       </div>
     </div>
   );

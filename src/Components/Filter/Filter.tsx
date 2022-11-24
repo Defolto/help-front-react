@@ -22,7 +22,7 @@ type Props = {
 };
 
 // сортировка задач исходя из select
-export const sortTasks = (typeSort: ISort, a: ITask, b: ITask): number => {
+export const sortTasks = (typeSort: ISort, a: any, b: any): number => {
   if (typeSort === "levelMore") {
     return a.level - b.level;
   }

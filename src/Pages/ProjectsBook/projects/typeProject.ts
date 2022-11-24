@@ -1,3 +1,8 @@
+type IFile = {
+  title: string;
+  src: string;
+};
+
 export type IProject = {
   name: string;
   description: string;
@@ -6,8 +11,8 @@ export type IProject = {
   number: number;
   tags: string[];
   notes: string[];
-  materials: string[];
-  links: string[];
+  materials: IFile[];
+  links: IFile[];
 };
 
 export function setDateProject(date: string) {

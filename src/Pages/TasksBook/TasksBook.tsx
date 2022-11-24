@@ -67,7 +67,7 @@ export default function TasksBook(): JSX.Element {
           `DEFAULT_SELECT_TYPE_TASKS, не существует такого типа задач`
         );
       });
-  }, [dispatch]);
+  }, []);
 
   // Загрузка других типов задач
   useEffect(() => {
