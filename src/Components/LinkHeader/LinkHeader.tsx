@@ -14,10 +14,10 @@ export default function LinkHeader({ to, icon, text }: Props): JSX.Element {
   };
 
   return (
-    <div className="LinkHeader" onClick={() => (window.location.href = to)}>
-      {getIcon(icon)}
+    <div className="LinkHeader">
       <NavLink className={({ isActive }) => isActiveLink(isActive)} to={to}>
-        {text}
+        {getIcon(icon)}
+        <p>{text}</p>
       </NavLink>
     </div>
   );

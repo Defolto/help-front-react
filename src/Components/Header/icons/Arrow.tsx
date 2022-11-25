@@ -24,10 +24,11 @@ export default function Arrow({
       height="24px"
       viewBox="0 0 96 96"
       onClick={() => {
-        console.log(headerProminence);
-        console.log(localStorage.getItem("miniHeaderMode"));
-        localStorage.setItem("miniHeaderMode", "true");
-        console.log(localStorage.getItem("miniHeaderMode"));
+        localStorage.setItem(
+          "miniHeaderMode",
+          `${headerProminence ? "" : "t"}`
+        );
+        setHeaderProminence(!!localStorage.getItem("miniHeaderMode"));
       }}
     >
       <g>
