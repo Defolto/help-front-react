@@ -1,0 +1,66 @@
+@import "../../_constans";
+@import "../../_general";
+.Header {
+  width: @widthNavigation;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 9px 15px;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #f1f1f1;
+  box-shadow: 3px 4px 8px 0 rgba(34, 60, 80, 0.2);
+  text-align: center;
+  transition: 0.5s;
+
+  &_mini {
+    width: 100px;
+    svg {
+      margin: 0 auto;
+    }
+  }
+
+  &__Menu {
+    a {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+    &_mini {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__Options {
+    p {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+    &_mini {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__Title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+
+    &Wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      margin-bottom: 35px;
+      margin-top: 10px;
+    }
+
+    &Svg {
+      margin: 0 5px;
+    }
+  }
+}
