@@ -14,7 +14,7 @@ export default function LinkHeader({ to, icon, text }: Props): JSX.Element {
   };
 
   return (
-    <div className="LinkHeader">
+    <div className="LinkHeader" onClick={() => (window.location.href = to)}>
       {getIcon(icon)}
       <NavLink className={({ isActive }) => isActiveLink(isActive)} to={to}>
         {text}
