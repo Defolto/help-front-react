@@ -13,8 +13,8 @@ export default function Arrow({
       className="Header__TitleSvg"
       style={
         headerProminence
-          ? { transform: "rotateZ(180deg)" }
-          : { transform: "rotateZ(0deg)" }
+          ? { transform: "rotateZ(0deg)" }
+          : { transform: "rotateZ(180deg)" }
       }
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"

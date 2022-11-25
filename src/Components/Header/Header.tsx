@@ -5,77 +5,50 @@ import { useState } from "react";
 import "./Header.css";
 import Arrow from "./icons/Arrow";
 export default function Header(): JSX.Element {
-  const [headerProminence, setHeaderProminence] = useState<boolean>(true);
+  const [miniMode, setMiniMode] = useState<boolean>(false);
   return (
-    <header className={headerProminence ? "Header" : "Header Header__mini"}>
+    <header className={`Header ${miniMode ? "Header_mini" : ""}`}>
       <div className="Header__TitleWrap">
         <Link className="Header__Title" to="/">
-          {headerProminence ? "HelpFront" : "HF"}
+          {miniMode ? "HF" : "HelpFront"}
         </Link>
-        <Arrow
-          headerProminence={headerProminence}
-          setHeaderProminence={setHeaderProminence}
-        />
+        <Arrow headerProminence={miniMode} setHeaderProminence={setMiniMode} />
       </div>
       <div
-        className="Header__Menu d-col"
-        style={
-          headerProminence
-            ? {}
-            : {
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }
-        }
+        className={`Header__Menu d-col ${miniMode ? "Header__Menu_mini" : ""}`}
       >
         <LinkHeader
           to="/infoBook"
           icon="info"
-          text={headerProminence ? "Справочник" : ""}
+          text={miniMode ? "" : "Справочник"}
         />
         <LinkHeader
           to="/LearnBook/?course=Html"
           icon="learn"
-          text={headerProminence ? "Учебник" : ""}
+          text={miniMode ? "" : "Учебник"}
         />
         <LinkHeader
           to="/ProjectsBook"
           icon="projects"
-          text={headerProminence ? "Проекты" : ""}
+          text={miniMode ? "" : "Проекты"}
         />
         <LinkHeader
           to="/TasksBook"
           icon="tasks"
-          text={headerProminence ? "Задачи" : ""}
+          text={miniMode ? "" : "Задачи"}
         />
       </div>
       <div
-        className="Header__Options d-col mt-auto"
-        style={
-          headerProminence
-            ? {}
-            : {
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }
-        }
+        className={`Header__Options d-col mt-auto ${
+          miniMode ? "Header__Options_mini" : ""
+        }`}
       >
-        <LinkHeader
-          to="/"
-          icon="help"
-          text={headerProminence ? "Помощь" : ""}
-        />
-        <LinkHeader
-          to="/"
-          icon="settings"
-          text={headerProminence ? "Настройки" : ""}
-        />
+        <LinkHeader to="/" icon="help" text={miniMode ? "" : "Помощь"} />
+        <LinkHeader to="/" icon="settings" text={miniMode ? "" : "Настройки"} />
         <LinkHeader
           to="/"
           icon="feedback"
-          text={headerProminence ? "Обратная связь" : ""}
+          text={miniMode ? "" : "Обратная связь"}
         />
       </div>
     </header>
