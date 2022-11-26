@@ -5,7 +5,9 @@ import { useState } from "react";
 import "./Header.css";
 import Arrow from "./icons/Arrow";
 export default function Header(): JSX.Element {
-  const [miniMode, setMiniMode] = useState<boolean>(false);
+  const [miniMode, setMiniMode] = useState<boolean>(
+    !!localStorage.getItem("miniHeaderMode")
+  );
   return (
     <header className={`Header ${miniMode ? "Header_mini" : ""}`}>
       <div className="Header__TitleWrap">

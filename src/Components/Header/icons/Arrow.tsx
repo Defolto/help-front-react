@@ -23,7 +23,13 @@ export default function Arrow({
       width="24px"
       height="24px"
       viewBox="0 0 96 96"
-      onClick={() => setHeaderProminence(!headerProminence)}
+      onClick={() => {
+        localStorage.setItem(
+          "miniHeaderMode",
+          `${headerProminence ? "" : "t"}`
+        );
+        setHeaderProminence(!!localStorage.getItem("miniHeaderMode"));
+      }}
     >
       <g>
         <path
