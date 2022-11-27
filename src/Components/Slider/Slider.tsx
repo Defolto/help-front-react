@@ -32,13 +32,26 @@ export default function Slider({
       const leftFrom = from.current.getBoundingClientRect().left;
       const range = e.pageX - leftFrom - 5;
       setLocalFrom((prev) => prev + range);
-      changeFrom(Math.round(localFrom));
+      if (localFrom < 0) {
+        changeFrom(0);
+      } else if (localFrom > 100) {
+        changeFrom(100);
+      } else {
+        changeFrom(Math.round(localFrom));
+      }
     }
     if (ball === "to" && to.current) {
       const leftTo = to.current.getBoundingClientRect().left;
       const range = e.pageX - leftTo - 5;
       setLocalTo((prev) => prev + range);
       changeTo(Math.round(localTo));
+      if (localTo < 0) {
+        changeTo(0);
+      } else if (localTo > 100) {
+        changeTo(100);
+      } else {
+        changeTo(Math.round(localTo));
+      }
     }
   };
 
