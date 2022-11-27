@@ -34,6 +34,8 @@ export default function Slider({
       setLocalFrom((prev) => prev + range);
       if (localFrom < 0) {
         changeFrom(0);
+      } else if (localFrom > 100) {
+        changeFrom(100);
       } else {
         changeFrom(Math.round(localFrom));
       }
@@ -45,6 +47,8 @@ export default function Slider({
       changeTo(Math.round(localTo));
       if (localTo < 0) {
         changeTo(0);
+      } else if (localTo > 100) {
+        changeTo(100);
       } else {
         changeTo(Math.round(localTo));
       }
