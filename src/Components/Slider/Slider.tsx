@@ -27,8 +27,10 @@ export default function Slider({
     if (!active) {
       return;
     }
-
-    if (ball === "from" && from.current) {
+    if (localTo < localFrom) {
+      setLocalFrom(localTo);
+      setLocalTo(localFrom);
+    } else if (ball === "from" && from.current) {
       const leftFrom = from.current.getBoundingClientRect().left;
       const range = e.pageX - leftFrom - 5;
       setLocalFrom((prev) => prev + range);
@@ -39,8 +41,7 @@ export default function Slider({
       } else {
         changeFrom(Math.round(localFrom));
       }
-    }
-    if (ball === "to" && to.current) {
+    } else if (ball === "to" && to.current) {
       const leftTo = to.current.getBoundingClientRect().left;
       const range = e.pageX - leftTo - 5;
       setLocalTo((prev) => prev + range);
@@ -76,7 +77,7 @@ export default function Slider({
       <div className="Slider__to" style={{ width: 100 - localTo + "%" }}>
         <div
           ref={to}
-          className="Slider__ball"
+          className="Slider__ball red"
           onMouseDown={() => setActive(true)}
           onMouseOut={() => stopChange()}
           onMouseUp={() => stopChange()}
