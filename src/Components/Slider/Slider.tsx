@@ -28,7 +28,8 @@ export default function Slider({
       return;
     }
     if (localTo < localFrom) {
-      setLocalFrom(localTo);
+      changeFrom(Math.round(localTo));
+      changeTo(Math.round(localFrom));
       setLocalTo(localFrom);
     } else if (ball === "from" && from.current) {
       const leftFrom = from.current.getBoundingClientRect().left;
