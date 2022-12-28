@@ -19,3 +19,11 @@ export function setDateProject(date: string) {
   const infoDate = date.split(".");
   return new Date(+infoDate[2], +infoDate[1] - 1, +infoDate[0]);
 }
+
+export function getCorrectDate(date: Date) {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${day}.${month}.${year}`;
+}

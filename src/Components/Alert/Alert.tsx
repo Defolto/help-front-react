@@ -9,10 +9,15 @@ type PropsSampleAlert = {
 
 function SampleAlert({ children }: PropsSampleAlert): JSX.Element {
   const dispatch = useAppDispatch();
+  const sizeAlert = useAppSelector((state) => state.alert.sizeAlert);
 
   return (
     <div className="Alert" onClick={() => dispatch(clearAlert())}>
-      <div className="Alert__content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="Alert__content"
+        style={sizeAlert}
+        onClick={(e) => e.stopPropagation()}
+      >
         {children}
       </div>
     </div>

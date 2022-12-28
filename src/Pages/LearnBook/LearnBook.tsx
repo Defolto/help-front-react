@@ -41,9 +41,13 @@ export default function LearnBook(): JSX.Element {
       })
       .catch(() => {
         dispatch(
-          showAlert(
-            "На данный момент, тема в разработке. Когда-нибудь она будет:)"
-          )
+          showAlert({
+            content:
+              "На данный момент, тема в разработке. Когда-нибудь она будет:)",
+            size: {
+              width: 300,
+            },
+          })
         );
       });
   };
@@ -56,9 +60,13 @@ export default function LearnBook(): JSX.Element {
       })
       .catch(() => {
         dispatch(
-          showAlert(
-            "На данный момент, тема в разработке. Когда-нибудь она будет:)"
-          )
+          showAlert({
+            content:
+              "На данный момент, тема в разработке. Когда-нибудь она будет:)",
+            size: {
+              width: 300,
+            },
+          })
         );
       });
   }, []);

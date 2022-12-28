@@ -1,10 +1,10 @@
 import Nav from "../../Components/Nav/Nav";
 import { useEffect, useState } from "react";
-import { ITask } from "../TasksBook/tasks/typeTask";
 import Filter, { ISort, sortTasks } from "../../Components/Filter/Filter";
 import "./ProjectsBook.css";
 import Project from "./Project/Project";
 import { IProject } from "./projects/typeProject";
+import { useAppDispatch } from "../../hooks";
 
 type IThemeProjects = "Приложения" | "Сайты" | "Проектирование" | "Компоненты";
 
@@ -28,6 +28,8 @@ function getFileName(type: IThemeProjects): string {
 }
 
 export default function ProjectsBook(): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const [selectThemeProjects, setSelectThemeProjects] =
     useState<IThemeProjects>(DEFAULT_SELECT_THEME_PROJECT);
   const [minLevel, setMinLevel] = useState<number>(0);
@@ -49,6 +51,20 @@ export default function ProjectsBook(): JSX.Element {
       });
   }, []);
 
+  // Загрузка других типов проектов
+  useEffect(() => {
+    import(`./projects/${getFileName(selectThemeProjects)}`)
+      .then((obj) => {
+        setShowProjects(obj.DATA);
+      })
+      .catch(() => {
+        throw Error(
+          `Неправильно передан selectThemeProjects, было ${selectThemeProjects}`
+        );
+      });
+  }, [selectThemeProjects, dispatch]);
+
+  console.log(1);
   return (
     <div className="ProjectsBook">
       <Nav

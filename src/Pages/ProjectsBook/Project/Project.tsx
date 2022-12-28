@@ -2,7 +2,10 @@ import "./Project.css";
 import DateIcon from "../icons/DateIcon";
 import LevelIcon from "../icons/LevelIcon";
 import NumberIcon from "../icons/NumberIcon";
-import { IProject } from "../projects/typeProject";
+import { getCorrectDate, IProject } from "../projects/typeProject";
+import { useAppDispatch } from "../../../hooks";
+import { showAlert } from "../../../Components/Alert/AlertSlice";
+import ProjectInfo from "../ProjectInfo/ProjectInfo";
 
 export default function Project({
   name,
@@ -15,19 +18,34 @@ export default function Project({
   materials,
   links,
 }: IProject): JSX.Element {
-  const getCorrectDate = (date: Date) => {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    return `${day}.${month}.${year}`;
-  };
+  const dispatch = useAppDispatch();
 
   return (
-    <div className="Project">
+    <div
+      className="Project"
+      onClick={() =>
+        dispatch(
+          showAlert({
+            content: (
+              <ProjectInfo
+                name={name}
+                description={description}
+                dateCreate={dateCreate}
+                level={level}
+                number={number}
+                tags={tags}
+                notes={notes}
+                materials={materials}
+                links={links}
+              />
+            ),
+          })
+        )
+      }
+    >
       <div className="Project__tags">
         {tags.map((tag) => (
-          <div className="Project__tag">
+          <div className="Project__tag" key={tag}>
             <p>{tag}</p>
           </div>
         ))}

@@ -2,12 +2,13 @@ import { IProject, setDateProject } from "./typeProject";
 
 export const DATA: IProject[] = [
   {
-    name: "Приложение для погоды",
-    description: "Простое описание проекта",
-    dateCreate: setDateProject("24.11.2022"),
-    level: 20,
+    name: "Простой калькулятор",
+    description:
+      "Калькулятор, который состоит из простых html элементов. Минимальный акцент на дизайн, максимальный на функционал",
+    dateCreate: setDateProject("28.12.2022"),
+    level: 2,
     number: 1,
-    tags: ["React", "JavaScript", "Html"],
+    tags: ["JavaScript", "Html"],
     notes: ["Первая заметка", "Вторая заметка"],
     materials: [
       {
