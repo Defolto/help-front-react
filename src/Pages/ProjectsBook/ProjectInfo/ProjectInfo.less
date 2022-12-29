@@ -1,6 +1,8 @@
 .ProjectInfo {
   max-width: 625px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 
   &__tags {
     display: flex;
@@ -23,9 +25,29 @@
     }
   }
 
+  &__name {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 20px;
+  }
+
+  &__wrapper {
+    margin-top: 20px;
+
+    & > p:first-child {
+      font-size: 23px;
+      font-weight: 700;
+    }
+
+    & > ul {
+      margin-left: 18px;
+    }
+  }
+
   &__info {
     display: flex;
-    margin-top: 30px;
+    margin: 30px auto 0 auto;
 
     &Container {
       display: flex;

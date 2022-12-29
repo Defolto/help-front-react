@@ -24,7 +24,7 @@ export default function ProjectInfo({
           </div>
         ))}
       </div>
-      <p>{name}</p>
+      <p className="ProjectInfo__name">{name}</p>
       <p>{description}</p>
       <div className="ProjectInfo__wrapper">
         <p>Замечания</p>
