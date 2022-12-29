@@ -28,31 +28,43 @@ export default function ProjectInfo({
       <p>{description}</p>
       <div className="ProjectInfo__wrapper">
         <p>Замечания</p>
-        <ul>
-          {notes.map((note) => (
-            <li key={note}>{note}</li>
-          ))}
-        </ul>
+        {materials.length ? (
+          <ul>
+            {notes.map((note) => (
+              <li key={note}>{note}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>К заданию нет замечаний</p>
+        )}
       </div>
       <div className="ProjectInfo__wrapper">
         <p>Материалы</p>
-        <ul>
-          {materials.map((material) => (
-            <li key={material.title}>
-              <a download href={material.src}>
-                {material.title}
-              </a>
-            </li>
-          ))}
-        </ul>
+        {materials.length ? (
+          <ul>
+            {materials.map((material) => (
+              <li key={material.title}>
+                <a download href={material.src}>
+                  {material.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>К заданию нет материалов</p>
+        )}
       </div>
       <div className="ProjectInfo__wrapper">
         <p>Ресурсы</p>
-        <ul>
-          {links.map((link) => (
-            <li key={link.title}>{link.title}</li>
-          ))}
-        </ul>
+        {links.length ? (
+          <ul>
+            {links.map((link) => (
+              <li key={link.title}>{link.title}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>К заданию нет ресурсов</p>
+        )}
       </div>
       <div className="ProjectInfo__info">
         <div className="ProjectInfo__infoContainer">

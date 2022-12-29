@@ -64,7 +64,6 @@ export default function ProjectsBook(): JSX.Element {
       });
   }, [selectThemeProjects, dispatch]);
 
-  console.log(1);
   return (
     <div className="ProjectsBook">
       <Nav

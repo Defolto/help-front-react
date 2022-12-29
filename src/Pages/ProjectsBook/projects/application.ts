@@ -9,26 +9,16 @@ export const DATA: IProject[] = [
     level: 2,
     number: 1,
     tags: ["JavaScript", "Html"],
-    notes: ["Первая заметка", "Вторая заметка"],
+    notes: [
+      "При делении на ноль, ответ должен быть адекватным",
+      "Доступны следующие операции: умножение, деление, сложение, вычитание и возведение в степень",
+    ],
     materials: [
       {
         title: "Макет",
         src: getUrlProjectMaterial("application", 1, "maket.jpg"),
       },
-      {
-        title: "ссылка номер 2",
-        src: "vk.com",
-      },
     ],
-    links: [
-      {
-        title: "ссылка номер 1",
-        src: "vk.com",
-      },
-      {
-        title: "ссылка номер 2",
-        src: "vk.com",
-      },
-    ],
+    links: [],
   },
 ];

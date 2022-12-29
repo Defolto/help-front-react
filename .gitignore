@@ -10,7 +10,7 @@
 
 # production
 /build
-/materials
+/public/materials
 
 # misc
 .DS_Store
