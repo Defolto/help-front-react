@@ -38,7 +38,11 @@ export default function ProjectInfo({
         <p>Материалы</p>
         <ul>
           {materials.map((material) => (
-            <li key={material.title}>{material.title}</li>
+            <li key={material.title}>
+              <a download href={material.src}>
+                {material.title}
+              </a>
+            </li>
           ))}
         </ul>
       </div>

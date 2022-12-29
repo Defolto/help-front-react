@@ -1,4 +1,4 @@
-import { IProject, setDateProject } from "./typeProject";
+import { getUrlProjectMaterial, IProject, setDateProject } from "./typeProject";
 
 export const DATA: IProject[] = [
   {
@@ -12,8 +12,8 @@ export const DATA: IProject[] = [
     notes: ["Первая заметка", "Вторая заметка"],
     materials: [
       {
-        title: "ссылка номер 1",
-        src: "vk.com",
+        title: "Макет",
+        src: getUrlProjectMaterial("application", 1, "maket.jpg"),
       },
       {
         title: "ссылка номер 2",

@@ -27,3 +27,12 @@ export function getCorrectDate(date: Date) {
 
   return `${day}.${month}.${year}`;
 }
+
+type IThemeProject = "sites" | "application" | "design" | "components";
+export function getUrlProjectMaterial(
+  theme: IThemeProject,
+  number: number,
+  nameFile: string
+): string {
+  return `/materials/projects/${theme}/${number}/${nameFile}`;
+}
