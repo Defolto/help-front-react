@@ -4,7 +4,7 @@ export const DATA: IProject[] = [
   {
     name: "Приложение для погоды",
     description: "Простое описание проекта",
-    dateCreate: setDateProject("24.11.2022"),
+    date: setDateProject("24.11.2022"),
     level: 20,
     number: 1,
     tags: ["React", "JavaScript", "Html"],

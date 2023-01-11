@@ -1,7 +1,6 @@
 import "./Filter.css";
 import Slider from "../Slider/Slider";
 import SearchIcon from "./SearchIcon";
-import { ITask } from "../../Pages/TasksBook/tasks/typeTask";
 
 export type ISort = "levelMore" | "levelLess" | "dateMore" | "dateLess";
 type Props = {

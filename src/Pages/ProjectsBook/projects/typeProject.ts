@@ -6,7 +6,7 @@ type IFile = {
 export type IProject = {
   name: string;
   description: string;
-  dateCreate: Date;
+  date: Date;
   level: number;
   number: number;
   tags: string[];
@@ -20,10 +20,15 @@ export function setDateProject(date: string) {
   return new Date(+infoDate[2], +infoDate[1] - 1, +infoDate[0]);
 }
 
+function addZeroStart(number: number): string {
+  const numberToString = number + "";
+  return numberToString.length === 1 ? 0 + numberToString : numberToString;
+}
+
 export function getCorrectDate(date: Date) {
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+  const day = addZeroStart(date.getDate());
+  const month = addZeroStart(date.getMonth() + 1);
+  const year = addZeroStart(date.getFullYear());
 
   return `${day}.${month}.${year}`;
 }

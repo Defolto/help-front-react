@@ -4,7 +4,7 @@ export const DATA: IProject[] = [
   {
     name: "Приложение для погоды 1",
     description: "Простое описание проекта",
-    dateCreate: setDateProject("24.11.2022"),
+    date: setDateProject("24.11.2022"),
     level: 20,
     number: 1,
     tags: ["React", "JavaScript", "Html"],
@@ -33,7 +33,7 @@ export const DATA: IProject[] = [
   {
     name: "Приложение для погоды 2",
     description: "Простое описание проекта",
-    dateCreate: setDateProject("24.11.2022"),
+    date: setDateProject("24.11.2022"),
     level: 20,
     number: 1,
     tags: ["React", "JavaScript", "Html"],
@@ -62,7 +62,7 @@ export const DATA: IProject[] = [
   {
     name: "Приложение для погоды 3",
     description: "Простое описание проекта",
-    dateCreate: setDateProject("24.11.2022"),
+    date: setDateProject("24.11.2022"),
     level: 20,
     number: 1,
     tags: ["React", "JavaScript", "Html"],

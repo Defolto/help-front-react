@@ -10,7 +10,7 @@ import ProjectInfo from "../ProjectInfo/ProjectInfo";
 export default function Project({
   name,
   description,
-  dateCreate,
+  date,
   level,
   number,
   tags,
@@ -30,7 +30,7 @@ export default function Project({
               <ProjectInfo
                 name={name}
                 description={description}
-                dateCreate={dateCreate}
+                date={date}
                 level={level}
                 number={number}
                 tags={tags}
@@ -55,7 +55,7 @@ export default function Project({
       <div className="Project__info">
         <div className="Project__infoContainer">
           <DateIcon />
-          <p>{getCorrectDate(dateCreate)}</p>
+          <p>{getCorrectDate(date)}</p>
         </div>
         <div className="Project__infoContainer">
           <LevelIcon />

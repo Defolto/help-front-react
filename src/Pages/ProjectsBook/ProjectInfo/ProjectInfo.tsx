@@ -7,7 +7,7 @@ import NumberIcon from "../icons/NumberIcon";
 export default function ProjectInfo({
   name,
   description,
-  dateCreate,
+  date,
   level,
   number,
   tags,
@@ -69,7 +69,7 @@ export default function ProjectInfo({
       <div className="ProjectInfo__info">
         <div className="ProjectInfo__infoContainer">
           <DateIcon />
-          <p>{getCorrectDate(dateCreate)}</p>
+          <p>{getCorrectDate(date)}</p>
         </div>
         <div className="ProjectInfo__infoContainer">
           <LevelIcon />
