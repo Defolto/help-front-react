@@ -10,7 +10,6 @@
 
 # production
 /build
-/public/materials
 
 # misc
 .DS_Store
